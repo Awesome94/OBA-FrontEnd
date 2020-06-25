@@ -8,7 +8,7 @@ const DropzoneComponent = () => {
         fileInputRef.current.click()
     }
 
-    const onFilesAdded = evt => {
+    onFilesAdded(evt) => {
         if (props.disabled) return;
         const files = evt.target.files;
         if (props.onFilesAdded) {
