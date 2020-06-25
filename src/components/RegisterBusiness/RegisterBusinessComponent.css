@@ -1,0 +1,55 @@
+.businessForm {
+	flex-direction: column;
+	padding: 0 50px;
+
+}
+.RegisterBusinessForm {
+    flex-basis: 100%;
+	display: inline-block;
+	align-items: center;
+	margin-top: 120px;
+}
+input.inputField {
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	padding: 40px 0px 0px 0px;
+	margin: 10px;
+    width: 40%;
+	font-size: 16px;
+    
+}
+.reg-container {
+	display: flex;
+    background-color: rebeccapurple;
+    border-radius: 10px;
+    flex-direction: column;
+    width: 1000px;
+    justify-content: center;
+    align-items: center;
+}
+form.business {
+	background-color: #FFFFFF;
+	align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 50px 0 50px;
+    padding: 50px;
+}
+
+.reg-business-container {
+	width: 80%;
+    justify-content: center;
+}
+button.register {
+    border-radius: 20px;
+	transition: transform 80ms ease-in;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+    padding: 12px 45px;
+	font-size: 12px;
+	border: 1px solid #FF4B2B;
+    margin-bottom: 20px;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+}
