@@ -1,19 +1,5 @@
-
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
-
 * {
 	box-sizing: border-box;
-}
-
-body {
-	background: #f6f5f7;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	font-family: 'Montserrat', sans-serif;
-	height: 100vh;
-	margin: -20px 0 50px;
 }
 
 h1 {
@@ -105,14 +91,15 @@ input.auth {
 .container {
 	display: flex;
 	position: relative;
+	margin-top: 150px;
 	background-color: #fff;
 	border-radius: 10px;
   	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
 			0 10px 10px rgba(0,0,0,0.22);
 	overflow: hidden;
-	width: 768px;
-	flex-basis: 100%;
+	width: 40%;
 	min-height: 480px;
+	left: 700px;
 }
 
 .form-container {

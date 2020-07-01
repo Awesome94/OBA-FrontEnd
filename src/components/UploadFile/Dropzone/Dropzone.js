@@ -1,35 +1,38 @@
-import './Dropzone.css'
-const DropzoneComponent = () => {
+import React, {useState} from 'react';
+import './Dropzone.css';
+import './cloud.png'
+const DropzoneComponent = (props) => {
+    const [highlight, sethighlight] = useState(true)
 
-    fileInputRef = React.createRef()
+    const fileInputRef = React.createRef()
 
     const openFileDialog = () => {
         if (props.disabled) return;
         fileInputRef.current.click()
     }
 
-    onFilesAdded(evt) => {
+    const onFilesAdded=evt => {
         if (props.disabled) return;
         const files = evt.target.files;
         if (props.onFilesAdded) {
-            const array = FileListToArray(files);
+            const array = fileListToArray(files);
             props.onFilesAdded(array);
         }
     }
 
-    onDragOver(evt) {
+    const onDragOver=evt=>{
         evt.preventDefault()
 
         if (props.disabled) return
 
-        setState({ hightlight: true })
+        sethighlight({ hightlight: true })
     }
 
-    onDragLeave() {
-        setState({ hightlight: false })
+    const onDragLeave=()=>{
+        sethighlight({ hightlight: false })
     }
 
-    onDrop(event) {
+    const onDrop=(event)=>{
         event.preventDefault()
 
         if (props.disabled) return
@@ -39,10 +42,10 @@ const DropzoneComponent = () => {
             const array = fileListToArray(files)
             props.onFilesAdded(array)
         }
-        setState({ hightlight: false })
+        sethighlight({ hightlight: false })
     }
 
-    fileListToArray(list) {
+    const fileListToArray=(list)=>{
         const array = []
         for (var i = 0; i < list.length; i++) {
             array.push(list.item(i))
@@ -52,7 +55,7 @@ const DropzoneComponent = () => {
 
     return (
         <div
-            className={`Dropzone ${state.hightlight ? 'Highlight' : ''}`}
+            className={`Dropzone ${highlight ? 'Highlight' : ''}`}
             onDragOver={onDragOver}
             onDragLeave={onDragLeave}
             onDrop={onDrop}
@@ -69,7 +72,7 @@ const DropzoneComponent = () => {
             <img
                 alt="upload"
                 className="Icon"
-                src="baseline-cloud_upload-24px.svg"
+                src={require("./cloud.png")}
             />
             <span>Upload Files</span>
         </div>

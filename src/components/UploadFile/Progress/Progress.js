@@ -1,7 +1,7 @@
 import React from 'react';
-import './progress.css'
+import './progressbar.css'
 
-const ProgressComponent = () => {
+const Progress = () => {
     return ( 
         <div className="progressBar">
             <div
@@ -12,4 +12,4 @@ const ProgressComponent = () => {
      );
 }
  
-export default ProgressComponent;
+export default Progress;
