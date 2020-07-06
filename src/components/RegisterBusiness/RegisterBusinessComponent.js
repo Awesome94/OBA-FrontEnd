@@ -1,11 +1,15 @@
 import React from 'react';
 import './RegisterBusinessComponent.css'
+import {Link} from 'react-router-dom';
 
 const RegisterBusinessComponent = () => {
     return (
         <div className="reg-container">
             <div className="reg-business-container">
+                <Link to="/" className="backLink">Back</Link>
                 <form className="business">
+                    <div>
+                    </div>
                     <div className="form-section">
                         <input className="inputField" title="Business Name" placeholder="Business Name" />
                         <input className="small" placeholder="Business Abbreviation" />

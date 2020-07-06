@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+
 import {Navbar, Nav} from 'react-bootstrap';
 
 const Navigation = (props) => {
@@ -11,7 +12,7 @@ const Navigation = (props) => {
     <Nav className="mr-auto">
     </Nav>
     <Nav>
-      <Nav.Link href="#home">Register</Nav.Link>
+      <Nav.Link Link to="/register">Register</Nav.Link>
       <Nav.Link href="#link">Sign In</Nav.Link>
     </Nav>
   </Navbar.Collapse>
@@ -26,7 +27,8 @@ const Navigation = (props) => {
     <Nav className="mr-auto">
     </Nav>
     <Nav>
-      <Nav.Link href="#home">Dashboard</Nav.Link>
+    {/* <Nav.Link href="/register">Register</Nav.Link> */}
+      <Nav.Link href="/">Dashboard</Nav.Link>
       <Nav.Link href="#link">Profile</Nav.Link>
       <Nav.Link href="#link2">Sign Out</Nav.Link>
     </Nav>

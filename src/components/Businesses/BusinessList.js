@@ -32,14 +32,11 @@ const BusinessTable = () => {
             <td>Table cell</td>
             <td>Table cell</td>
             <td>
-              <div onClick={openFileDialog}>
               <input
                 ref={fileInputRef}
                 className="FileInput"
                 type="file"
-                multiple
                 />
-                <button>Upload Csv</button></div>
             </td>
           </tr>
      
