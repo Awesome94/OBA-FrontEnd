@@ -3,6 +3,12 @@ import { Table } from 'react-bootstrap';
 
 
 const BusinessTable = () => {
+
+  const fileInputRef = React.createRef()
+
+  const openFileDialog = () => {
+    fileInputRef.current.click()
+}
     return ( 
         <Table responsive>
         <thead>
@@ -18,14 +24,23 @@ const BusinessTable = () => {
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
+            <td>Chanuka</td>
             <td>Table cell</td>
             <td>Table cell</td>
             <td>Table cell</td>
             <td>Table cell</td>
             <td>Table cell</td>
             <td>Table cell</td>
-            <td><button>Upload Csv</button></td>
+            <td>
+              <div onClick={openFileDialog}>
+              <input
+                ref={fileInputRef}
+                className="FileInput"
+                type="file"
+                multiple
+                />
+                <button>Upload Csv</button></div>
+            </td>
           </tr>
      
 
