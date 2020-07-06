@@ -25,25 +25,10 @@ const BusinessTable = () => {
             <td>Table cell</td>
             <td>Table cell</td>
             <td>Table cell</td>
+            <td><button>Upload Csv</button></td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-          </tr>
+     
+
         </tbody>
       </Table>
      );

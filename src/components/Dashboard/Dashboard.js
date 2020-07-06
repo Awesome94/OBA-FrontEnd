@@ -12,11 +12,25 @@ const DashboardComponent = () => {
             </div>
             <div className="graphs">
                 <PieChartComponent/>
-                <p>Another one</p>
+            <div className="productInfo">
+                <div className="items">
+                    <p className="itemTitle">Top Product:</p>
+                    <p className="content"> Shoes</p>
+                </div>
+                <div className="items">
+                    <p className="itemTitle">Incoming Amount:</p>
+                    <p className="content"> 2,000</p>
+                </div>
+                <div className="items">
+                    <p className="itemTitle">Outgoing Amount:</p>
+                    <p className="content"> 1,000</p>
+                </div>
+            </div>
             </div>
             <div className="graphs">
                 <GraphComponent/>
                 <GraphComponent/>
+
             </div>
         </div>
      );
