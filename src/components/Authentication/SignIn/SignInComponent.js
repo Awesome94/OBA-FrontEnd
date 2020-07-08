@@ -1,53 +1,42 @@
-import React, {useState} from 'react';
-import {authHeader} from '../../../helpers/auth-header';
-import {useHistory} from "react-router-dom";
+import React, {useState, useEffect} from 'react';
+import {Link} from "react-router-dom";
+import {useDispatch, useSelector } from 'react-redux';
+
+import {userActions} from '../../../_actions';
 
 
 const SignInComponent = (props) => {
-    const [Loading, setLoading] = useState(false);
-    const username  = useFormInput('');
+    const [submitted, setSubmitted] = useState(false);
+    const email  = useFormInput('');
     const password = useFormInput('');
-    const [error, setError] = useState(null)
-    let history = useHistory();
+    const loggingIn = useSelector(state=>state.authentication.loggingIn);
+    const dispatch = useDispatch();
     
-    const handleLogin=()=>{
-        const apiUrl = "http://127.0.0.1:5000/login"
-        const payload = JSON.stringify({ email: username.value, password: password.value})
-        fetch(apiUrl, {
-            method: 'post',
-            headers: { "Content-type": "application/json; charset=UTF-8"
-        }, 
-        body: payload
-        })
-        .then(res=>res.json())
-        .then(function (res) {
-            console.log(res)
-            authHeader(res.token)
-            debugger
-            props.history.push('/')
-        })
-        .catch(function (error) {
-            setLoading(false);
-            if (error.response.status === 401) setError(error.response.data.message);
-            else setError("Something went wrong. Please try again later.");
-            console.log(error)
-        });
-    }
+    useEffect(()=>{
+        dispatch(userActions.logout());
+    }, []);
 
+    const handleLogin=(e)=>{
+        e.preventDefault();
+        setSubmitted(true)
+        if (email && password){
+            dispatch(userActions.login(email.value, password.value));
+        }
+    }
 
     return (
         <div className="form-container sign-in-container">
-            <form className="auth">
+            <form className="auth" onSubmit={handleLogin}>
                 <h1>Sign In</h1>
                 <div className="social-container">
                     <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
                     <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
                 </div>
                 <span>or use your account</span>
-                <input className="auth" type="email" {...username} placeholder="Email address" />
+                <input className="auth" type="email" {...email} placeholder="Email address" />
                 <input className="auth" type="password" {...password} placeholder="Password" />
                 <a href="#">Forgot your password?</a>
-                <button className="action" onClick={handleLogin}>Sign In</button>
+                <button className="action">Sign In</button>
             </form>
         </div>
     )

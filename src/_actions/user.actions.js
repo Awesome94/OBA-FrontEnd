@@ -4,18 +4,18 @@ import {alertActions} from './';
 import { history } from "../helpers";
 
 
-export consst userActions = {
+export const userActions = {
     login,
     logout,
     register,
+    registerBusiness
 };
 
-const login = ()=>{
+function login(email, password){
     return dispatch => {
-        dispatch(request({username}));
-
-        userService.login(username, password)
-            .then(
+        dispatch(request({email}));
+        userService.login(email, password)
+        .then(
                 user => {
                     dispatch(success(user));
                     history.push('/');
@@ -26,17 +26,18 @@ const login = ()=>{
                 }
             );
     };
-    const request=(user)=>{ return { type: userConstants.LOGIN_REQUEST, user } }
-    const success=(user)=>{ return { type: userConstants.LOGIN_SUCCESS, user } }
-    const failure=(error)=>{ return { type: userConstants.LOGIN_FAILURE, error } }
+    function request(user){ return { type: userConstants.LOGIN_REQUEST, user } }
+    function success(user){ return { type: userConstants.LOGIN_SUCCESS, user } }
+    function failure(error){ return { type: userConstants.LOGIN_FAILURE, error } }
 }
 
-cosnt logout=()=>{
+function logout(){
     userService.logout();
+    history.push('/auth');
     return {type: userConstants.LOGOUT};
 }
 
-const register=user=>{
+function register(user){
     return dispatch=>{
         dispatch(request(user));
 
@@ -44,7 +45,6 @@ const register=user=>{
             .then(
                 user=>{
                     dispatch(success());
-                    history.push('/login');
                     dispatch(alertActions.success('Registration Successful'));
                 },
                 error => {
@@ -53,7 +53,29 @@ const register=user=>{
                 }
             );
     };
-    const request=(user)=>{ return {type: userConstants.REGISTER_REQUEST, user}}
-    const success=(user)=>{ return { type: userConstants.REGISTER_SUCCESS, user } }
-    const failure=(error)=>{ return { type: userConstants.REGISTER_FAILURE, error } }
+    function request(user){ return {type: userConstants.REGISTER_REQUEST, user}}
+    function success(user){ return { type: userConstants.REGISTER_SUCCESS, user } }
+    function failure(error){ return { type: userConstants.REGISTER_FAILURE, error } }
+}
+
+function registerBusiness(business){
+    return dispatch=>{
+        dispatch(request(business));
+
+        userService.registerBusiness(business)
+            .then(
+                business=>{
+                    dispatch(success());
+                    dispatch(alertActions.success('Business Registered Successfully'));
+                    history.push("/")
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+    function request(business){ return {type: userConstants.REGISTER_REQUEST, business}}
+    function success(business){ return { type: userConstants.REGISTER_SUCCESS, business } }
+    function failure(error){ return { type: userConstants.REGISTER_FAILURE, error } }
 }

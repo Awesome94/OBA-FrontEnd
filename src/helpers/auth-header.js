@@ -1,14 +1,15 @@
-export const authHeader = () => {
+export function authHeader(){
+        debugger
         let token = JSON.parse(sessionStorage.getItem('token'));
         if (token) {
             return {
-                'Authorization':'Bearer' +token};
+                'Authorization':'Bearer' + token};
             }else{
-                return {}
+                return {};
             }
         }
 
-export const removeUserSession =() =>{
+export function removeUserSession(){
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('user');
 }

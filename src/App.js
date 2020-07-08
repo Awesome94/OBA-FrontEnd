@@ -1,5 +1,5 @@
 import React, { Component, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Router, Route, Switch } from 'react-router-dom';
 import {useDispatch, useSelector } from 'react-redux';
 
 import {history} from '../src/helpers';
@@ -16,18 +16,16 @@ import ActionPage from './components/ActionPage/ActionPage';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class App extends Component {
+const App=()=>{
   const alert = useSelector(state => state.alert);
   const dispatch = useDispatch();
-
+  
   useEffect(()=>{
     history.listen((location, action)=>{
       dispatch(alertActions.clear());
     });
   }, []);
-    render() {
         return ( 
-            <BrowserRouter>
               <div className="App">
                 <Navigation/>
                 <Router history={history}>
@@ -41,9 +39,7 @@ class App extends Component {
                   </Switch>
                 </Router>
               </div>
-            </BrowserRouter>
         );
-    }
 }
 
 export default App;
