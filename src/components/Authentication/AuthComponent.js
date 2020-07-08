@@ -5,12 +5,7 @@ import SignUpComponent from './SignUp/SignUpComponent'
 
 const AuthComponent = () => {
     const [classContainer, setClassContainer] = useState(['container'])
-    const userData = {
-        firstname:"",
-        lastname:"",
-        email:"",
-        password:""
-    }
+  
     const [userData, setuserData] = useState({})
 
     const OnclickSignUp = () => {

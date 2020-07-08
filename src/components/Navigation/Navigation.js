@@ -30,7 +30,7 @@ const Navigation = (props) => {
     {/* <Nav.Link href="/register">Register</Nav.Link> */}
       <Nav.Link href="/">Dashboard</Nav.Link>
       <Nav.Link href="#link">Profile</Nav.Link>
-      <Nav.Link href="#link2">Sign Out</Nav.Link>
+      <Nav.Link href="/auth">Sign Out</Nav.Link>
     </Nav>
   </Navbar.Collapse>
 </Navbar>
