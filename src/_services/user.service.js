@@ -5,7 +5,8 @@ export const userService = {
     login,
     logout,
     registerBusiness,
-    register
+    register,
+    getAllBusinesses
 };
 
 function login(email, password) {
@@ -37,6 +38,7 @@ function getById(id){
     return fetch(apiUrl/{id}, requestOptions).then(handleResponse);
 }
 
+
 function register(user){
     const apiUrl = "http://127.0.0.1:5000/register"
     const requestOptions = {
@@ -55,6 +57,23 @@ function registerBusiness(business){
         body: JSON.stringify(business)
     };
     return fetch(apiUrl, requestOptions).then(handleResponse);
+}
+
+function getAllBusinesses(){
+    const apiUrl = "http://127.0.0.1:5000/businesses/all"
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    }
+    return fetch(apiUrl, requestOptions).then(handleResponse);
+}
+
+function DeleteBusiness(id){
+    const apiUrl = "http://127.0.0.1:5000/businesses/all"
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    }
 }
 
 function handleResponse(response){

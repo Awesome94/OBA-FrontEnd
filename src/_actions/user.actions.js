@@ -8,7 +8,8 @@ export const userActions = {
     login,
     logout,
     register,
-    registerBusiness
+    registerBusiness,
+    getAllBusinesses
 };
 
 function login(email, password){
@@ -78,4 +79,20 @@ function registerBusiness(business){
     function request(business){ return {type: userConstants.REGISTER_REQUEST, business}}
     function success(business){ return { type: userConstants.REGISTER_SUCCESS, business } }
     function failure(error){ return { type: userConstants.REGISTER_FAILURE, error } }
+}
+
+function getAllBusinesses() {
+    return dispatch => {
+        dispatch(request());
+
+        userService.getAllBusinesses()
+            .then(
+                business => dispatch(success(business)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+
+    function request(business) { return { type: userConstants.GETALL_REQUEST } }
+    function success(business) { return { type: userConstants.GETALL_SUCCESS, business } }
+    function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
