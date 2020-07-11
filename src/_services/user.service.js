@@ -62,10 +62,12 @@ function registerBusiness(business){
 
 function UploadCsvFile(file){
     const apiUrl =`http://127.0.0.1:5000/business/1/upload`
+    const formData = new FormData()
+    formData.append('file', file)
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader()}, 
-        files: file
+        body: formData
     };
     return fetch(apiUrl, requestOptions).then(handleResponse);
 }

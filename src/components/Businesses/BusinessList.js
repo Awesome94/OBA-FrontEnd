@@ -24,20 +24,7 @@ const BusinessTable = ({items}) => {
 
 const onFilesAdded=evt=> {
   const files = evt.target.files[0];
-  return new Promise((resolve, reject) => {
-    const req = new XMLHttpRequest();
-    const formData = new FormData();
-    console.log("this is it formdata", formData.entries(), files)
-    formData.append("file", files, files.name);
-
-    dispatch(userActions.UploadCsvFile(formData))
-    // req.open("POST", `http://localhost:5000/business/1/upload`);
-    // req.send(formData);
-    
-    // setfiles(formData)
-
-  });
-  // const formData = new FormData();
+    dispatch(userActions.UploadCsvFile(files))
 }
 
 const fileListToArray=(list)=>{
@@ -100,5 +87,8 @@ console.log("items made", items)
       </Table>
      );
 }
+// const mapDispatchToProps = dispatch => ({
+//   userActions.UploadCsvFile: file=>dispatch(userActions.UploadCsvFile(file))
+// })
 const mapStateToProps = ({business})=>({items: business.items})
 export default connect(mapStateToProps, {})(BusinessTable);

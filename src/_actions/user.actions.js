@@ -102,7 +102,6 @@ function registerBusiness(business){
 function UploadCsvFile(file){
     return dispatch=>{
         dispatch(request(file));
-        debugger
         userService.UploadCsvFile(file)
             .then(
                 file=>{

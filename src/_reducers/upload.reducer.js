@@ -1,11 +1,13 @@
 import { userConstants } from '../_constants';
 
-export function uploadCsv(state = {}, action) {
+  export function uploadCsv(state = {}, action) {
   switch (action.type) {
     case userConstants.UPLOAD_REQUEST:
       return { uploading: true };
     case userConstants.UPLOAD_SUCCESS:
-      return {};
+      return {
+          ...state,
+      };
     case userConstants.UPLOAD_FAILURE:
       return {};
     default:
