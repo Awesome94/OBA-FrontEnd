@@ -11,7 +11,7 @@ const DropzoneComponent = (props) => {
         fileInputRef.current.click()
     }
 
-    const onFilesAdded=evt => {
+    const onFilesAdded=evt=> {
         if (props.disabled) return;
         const files = evt.target.files;
         if (props.onFilesAdded) {
@@ -40,7 +40,7 @@ const DropzoneComponent = (props) => {
         const files = event.dataTransfer.files
         if (props.onFilesAdded) {
             const array = fileListToArray(files)
-            props.onFilesAdded(array)
+            set(array)
         }
         sethighlight({ hightlight: false })
     }

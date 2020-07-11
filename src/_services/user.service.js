@@ -6,7 +6,8 @@ export const userService = {
     logout,
     registerBusiness,
     register,
-    getAllBusinesses
+    getAllBusinesses,
+    UploadCsvFile
 };
 
 function login(email, password) {
@@ -53,8 +54,18 @@ function registerBusiness(business){
     const apiUrl = "http://127.0.0.1:5000/business/register"
     const requestOptions = {
         method: 'POST',
-        headers: { ...authHeader(), "Content-type": "application/json; charset=UTF-8"}, 
+        headers: { ...authHeader(), "Content-type": "multipart/form-data"}, 
         body: JSON.stringify(business)
+    };
+    return fetch(apiUrl, requestOptions).then(handleResponse);
+}
+
+function UploadCsvFile(file){
+    const apiUrl =`http://127.0.0.1:5000/business/1/upload`
+    const requestOptions = {
+        method: 'POST',
+        headers: { ...authHeader()}, 
+        files: file
     };
     return fetch(apiUrl, requestOptions).then(handleResponse);
 }
@@ -69,7 +80,7 @@ function getAllBusinesses(){
 }
 
 function DeleteBusiness(id){
-    const apiUrl = "http://127.0.0.1:5000/businesses/all"
+    const apiUrl = "http://127.0.0.1:5000/businesses/id"
     const requestOptions = {
         method: 'GET',
         headers: authHeader()

@@ -2,6 +2,7 @@ import { userConstants } from '../_constants';
 import {userService } from '../_services';
 import {alertActions} from './';
 import { history } from "../helpers";
+import { business } from '../_reducers/business.reducer';
 
 
 export const userActions = {
@@ -9,7 +10,8 @@ export const userActions = {
     logout,
     register,
     registerBusiness,
-    getAllBusinesses
+    getAllBusinesses,
+    UploadCsvFile
 };
 
 function login(email, password){
@@ -59,6 +61,22 @@ function register(user){
     function failure(error){ return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
+function getAllBusinesses() {
+    return dispatch => {
+        dispatch(request());
+
+        userService.getAllBusinesses()
+            .then(
+                business => dispatch(success(business)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+
+    function request(business) { return { type: userConstants.GETALL_REQUEST } }
+    function success(business) { return { type: userConstants.GETALL_SUCCESS, business } }
+    function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
+}
+
 function registerBusiness(business){
     return dispatch=>{
         dispatch(request(business));
@@ -81,18 +99,24 @@ function registerBusiness(business){
     function failure(error){ return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
-function getAllBusinesses() {
-    return dispatch => {
-        dispatch(request());
-
-        userService.getAllBusinesses()
+function UploadCsvFile(file){
+    return dispatch=>{
+        dispatch(request(file));
+        debugger
+        userService.UploadCsvFile(file)
             .then(
-                business => dispatch(success(business)),
-                error => dispatch(failure(error.toString()))
+                file=>{
+                    dispatch(success());
+                    dispatch(alertActions.success('File Uploaded Successfully'));
+                    history.push("/dashboard")
+                },
+                error =>{
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
             );
-    };
-
-    function request(business) { return { type: userConstants.GETALL_REQUEST } }
-    function success(business) { return { type: userConstants.GETALL_SUCCESS, business } }
-    function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
+    }
+    function request(file){return{type: userConstants.UPLOAD_REQUEST, file}}
+    function success(file){return{type: userConstants.UPLOAD_SUCCESS, file}}
+    function failure(error){return {type: userConstants.UPLOAD_FAILURE, error}}
 }
