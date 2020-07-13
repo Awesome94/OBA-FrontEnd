@@ -6,7 +6,7 @@ import { userConstants } from '../_constants';
       return { uploading: true };
     case userConstants.UPLOAD_SUCCESS:
       return {
-          ...state,
+         items: action.file
       };
     case userConstants.UPLOAD_FAILURE:
       return {};

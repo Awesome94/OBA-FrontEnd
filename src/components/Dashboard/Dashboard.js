@@ -1,9 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PieChartComponent from '../Dashboard/Piechart/PiechartComponent';
 import GraphComponent from '../Dashboard/Graph/GraphComponent';
+import {userActions} from '../../_actions/user.actions';
+import { useDispatch, connect, useSelector } from "react-redux";
 import './dashboard.css';
 
 const DashboardComponent = () => {
+    const topQuantity = useSelector(state => state.topQuantity)
+    const topQuality = useSelector(state => state.topQuality)
+    const user = useSelector(state=>state.authentication.user)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(userActions.getAllTopQuantity());
+        dispatch(userActions.getAllTopQuality());
+        }, []);
+
     return ( 
         <div className="dashContainer">
             <div className="businessHeader">

@@ -1,9 +1,8 @@
 import React,{useEffect, useState} from 'react';
-import{Link} from 'react-dom';
 import {useDispatch, connect, useSelector} from 'react-redux';
 import {userActions} from '../../_actions';
-import { Table, Form } from 'react-bootstrap';
-import moduleName from './business.css'
+import { Table, Form, Modal, Button} from 'react-bootstrap';
+import './business.css'
 
 const BusinessTable = ({items}) => {
   const businesses = useSelector(state => state.business)
@@ -11,6 +10,8 @@ const BusinessTable = ({items}) => {
   const [files, setfiles] = useState([''])
   const [Uploading, setUploading] = useState(false)
   const dispatch = useDispatch()
+  const [modalShow, setModalShow] = useState(false);
+  const [businessId, setBusinessId] = useState()
 
   useEffect(() => {
     dispatch(userActions.getAllBusinesses());
@@ -27,16 +28,42 @@ const onFilesAdded=evt=> {
     dispatch(userActions.UploadCsvFile(files))
 }
 
-const fileListToArray=(list)=>{
-  const array = []
-  for (var i = 0; i < list.length; i++) {
-      array.push(list.item(i))
-  }
-  return array
+const handleDelete=(id)=>{
+  dispatch(userActions.delete(id))
 }
- 
-console.log("items made", items)
+
+const setModalAndID=(id)=>{
+  setModalShow(true)
+  setBusinessId(id)
+}
+
+const DeleteBusinessModal=(props)=>{
+  return (
+    <Modal
+      {...props}
+      size="md"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Delete businessName and all it's Data?
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p>
+          Delete Chanuka and all it's Transaction details
+        </p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.onHide}>Cancel</Button>
+        <Button variant="danger" onClick={()=>{handleDelete(businessId)}}>Delete</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
     return ( 
+      <div>
         <Table responsive>
         <thead>
           <tr>
@@ -55,14 +82,14 @@ console.log("items made", items)
           items && items.map((business)=>{
             return (
               <tr>
-                <td>{business.name}</td>
+                <td style={{cursor:"pointer"}} onClick={()=>{alert("awesome")}}>{business.name}</td>
                 <td>{business.abbreviation}</td>
                 <td>{business.address}</td>
                 <td>{business.country}</td>
                 <td>{business.name}</td>
 
                 <td> 
-                  <button className="uploadBtn" onClick={openFileDialog}><i  className="material-icons md-24">publish</i></button>
+                  <i style={{cursor:"pointer"}} onClick={openFileDialog} className="material-icons md-24">publish</i>
                     <input
                     ref={fileInputRef}
                     className="FileInput"
@@ -74,10 +101,10 @@ console.log("items made", items)
                    
                 </td>
                 <td>
-                  <button className="uploadBtn" ><i className="material-icons md-24">edit</i></button>
+                  <i style={{cursor:"pointer"}}  className="material-icons md-24">edit</i>
                 </td>
                 <td>
-                <button className="uploadBtn" ><i className="material-icons md-24 red">delete</i></button>
+               <i style={{cursor:"pointer"}} onClick={()=>setModalAndID(business.id)} className="material-icons md-24 red">delete</i>
                 </td>
             </tr>
               )
@@ -85,6 +112,11 @@ console.log("items made", items)
           }
         </tbody>
       </Table>
+      <DeleteBusinessModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+      </div>
      );
 }
 // const mapDispatchToProps = dispatch => ({

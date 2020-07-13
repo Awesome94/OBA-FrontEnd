@@ -7,7 +7,10 @@ export const userService = {
     registerBusiness,
     register,
     getAllBusinesses,
-    UploadCsvFile
+    UploadCsvFile,
+    getAllTopQuantity,
+    getAllTopQuality,
+    delete:_delete
 };
 
 function login(email, password) {
@@ -81,12 +84,31 @@ function getAllBusinesses(){
     return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 
-function DeleteBusiness(id){
-    const apiUrl = "http://127.0.0.1:5000/businesses/id"
+function getAllTopQuantity(){
+    const apiUrl = `http://127.0.0.1:5000/business/1/quantity`
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     }
+    return fetch(apiUrl, requestOptions).then(handleResponse);
+}
+
+function getAllTopQuality(){
+    const apiUrl = `http://127.0.0.1:5000/business/1/quality`
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    }
+    return fetch(apiUrl, requestOptions).then(handleResponse);
+}
+
+function _delete(id){
+    const apiUrl = "http://127.0.0.1:5000/business"
+    const requestOptions = {
+        method: 'DELETE',
+        headers: authHeader()
+    }
+    return fetch(`${apiUrl}/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response){

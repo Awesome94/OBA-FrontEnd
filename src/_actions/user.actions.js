@@ -11,7 +11,10 @@ export const userActions = {
     register,
     registerBusiness,
     getAllBusinesses,
-    UploadCsvFile
+    UploadCsvFile,
+    getAllTopQuality,
+    getAllTopQuantity,
+    delete:_delete
 };
 
 function login(email, password){
@@ -76,6 +79,38 @@ function getAllBusinesses() {
     function success(business) { return { type: userConstants.GETALL_SUCCESS, business } }
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
+function getAllTopQuantity() {
+    return dispatch => {
+        dispatch(request());
+
+        userService.getAllTopQuantity()
+            .then(
+                business => dispatch(success(business)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+
+    function request(items) { return { type: userConstants.GETALL_REQUEST } }
+    function success(items) { return { type: userConstants.GETALL_SUCCESS, items } }
+    function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
+}
+
+function getAllTopQuality() {
+    return dispatch => {
+        dispatch(request());
+
+        userService.getAllTopQuality()
+            .then(
+                business => dispatch(success(business)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+
+    function request(items) { return { type: userConstants.GETALL_REQUEST } }
+    function success(items) { return { type: userConstants.GETALL_SUCCESS, items } }
+    function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
+}
+
 
 function registerBusiness(business){
     return dispatch=>{
@@ -105,7 +140,7 @@ function UploadCsvFile(file){
         userService.UploadCsvFile(file)
             .then(
                 file=>{
-                    dispatch(success());
+                    dispatch(success(file));
                     dispatch(alertActions.success('File Uploaded Successfully'));
                     history.push("/dashboard")
                 },
@@ -118,4 +153,21 @@ function UploadCsvFile(file){
     function request(file){return{type: userConstants.UPLOAD_REQUEST, file}}
     function success(file){return{type: userConstants.UPLOAD_SUCCESS, file}}
     function failure(error){return {type: userConstants.UPLOAD_FAILURE, error}}
+}
+
+function _delete(id) {
+    return dispatch => {
+        dispatch(request(id));
+
+        userService.delete(id)
+            .then(
+                user => dispatch(success(id)),
+                error => dispatch(failure(id, error.toString()))
+                );
+                history.push("/")
+    };
+
+    function request(id) { return { type: userConstants.DELETE_REQUEST, id } }
+    function success(id) { return { type: userConstants.DELETE_SUCCESS, id } }
+    function failure(id, error) { return { type: userConstants.DELETE_FAILURE, id, error } }
 }
