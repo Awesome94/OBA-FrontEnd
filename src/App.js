@@ -12,6 +12,7 @@ import AuthComponent from './components/Authentication/AuthComponent';
 import RegisterBusinessComponent from './components/RegisterBusiness/RegisterBusinessComponent'
 import DashboardComponent from './components/Dashboard/Dashboard';
 import ActionPage from './components/ActionPage/ActionPage';
+import UpdateBusiness from './components/UpdateBusiness/UpdateBusiness';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,6 +35,7 @@ const App=()=>{
                       <Route path="/register" component={RegisterBusinessComponent} />
                       <Route path="/dashboard" component={DashboardComponent} />
                       <Route path="/auth" component={AuthComponent} />
+                      <Route path="/edit" component={UpdateBusiness} />
                       <Route component={Error} />
                       <Redirect from="*" to="/" />
                   </Switch>

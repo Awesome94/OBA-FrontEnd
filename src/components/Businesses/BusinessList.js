@@ -12,6 +12,7 @@ const BusinessTable = ({items}) => {
   const dispatch = useDispatch()
   const [modalShow, setModalShow] = useState(false);
   const [businessId, setBusinessId] = useState()
+  const [bussinessList, setBussinessList] = useState({items})
 
   useEffect(() => {
     dispatch(userActions.getAllBusinesses());
@@ -28,8 +29,14 @@ const onFilesAdded=evt=> {
     dispatch(userActions.UploadCsvFile(files))
 }
 
+const updateBusinessData=(id)=>{
+  dispatch(userActions.updateBusinessDetails(id))
+}
+
 const handleDelete=(id)=>{
   dispatch(userActions.delete(id))
+  setBussinessList(items)
+  setModalShow(false)
 }
 
 const setModalAndID=(id)=>{
@@ -84,7 +91,7 @@ const DeleteBusinessModal=(props)=>{
               <tr>
                 <td style={{cursor:"pointer"}} onClick={()=>{alert("awesome")}}>{business.name}</td>
                 <td>{business.abbreviation}</td>
-                <td>{business.address}</td>
+                <td>{business.company_address}</td>
                 <td>{business.country}</td>
                 <td>{business.name}</td>
 
@@ -101,7 +108,7 @@ const DeleteBusinessModal=(props)=>{
                    
                 </td>
                 <td>
-                  <i style={{cursor:"pointer"}}  className="material-icons md-24">edit</i>
+                  <i style={{cursor:"pointer"}} onClick={()=>{updateBusinessData(business.id)}}  className="material-icons md-24">edit</i>
                 </td>
                 <td>
                <i style={{cursor:"pointer"}} onClick={()=>setModalAndID(business.id)} className="material-icons md-24 red">delete</i>

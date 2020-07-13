@@ -14,6 +14,8 @@ export const userActions = {
     UploadCsvFile,
     getAllTopQuality,
     getAllTopQuantity,
+    getChartData,
+    updateBusinessDetails,
     delete:_delete
 };
 
@@ -111,6 +113,22 @@ function getAllTopQuality() {
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 
+function getChartData() {
+    return dispatch => {
+        dispatch(request());
+
+        userService.getChartData()
+            .then(
+                business => dispatch(success(business)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+
+    function request(items) { return { type: userConstants.GETALL_REQUEST } }
+    function success(items) { return { type: userConstants.GETALL_SUCCESS, items } }
+    function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
+}
+
 
 function registerBusiness(business){
     return dispatch=>{
@@ -135,6 +153,7 @@ function registerBusiness(business){
 }
 
 function updateBusinessDetails(business){
+    history.push("/edit")
     return dispatch=>{
         dispatch(request(business));
 
@@ -151,9 +170,9 @@ function updateBusinessDetails(business){
                 }
             );
     };
-    function request(business){ return {type: userConstants.REGISTER_REQUEST, business}}
-    function success(business){ return { type: userConstants.REGISTER_SUCCESS, business } }
-    function failure(error){ return { type: userConstants.REGISTER_FAILURE, error } }
+    function request(business){ return {type: userConstants.UPDATE_REQUEST, business}}
+    function success(business){ return { type: userConstants.UPDATE_SUCCESS, business } }
+    function failure(error){ return { type: userConstants.UPDATE_FAILURE, error } }
 }
 
 function UploadCsvFile(file){

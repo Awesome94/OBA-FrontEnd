@@ -11,6 +11,7 @@ export const userService = {
     getAllTopQuantity,
     getAllTopQuality,
     updateBusinessDetails,
+    getChartData,
     delete:_delete
 };
 
@@ -58,18 +59,18 @@ function registerBusiness(business){
     const apiUrl = "http://127.0.0.1:5000/business/register"
     const requestOptions = {
         method: 'POST',
-        headers: { ...authHeader(), "Content-type": "multipart/form-data"}, 
+        headers: { ...authHeader(), "Content-type": "application/json; charset=UTF-8"}, 
         body: JSON.stringify(business)
     };
     return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 
-function updateBusinessDetails(business){
-    const apiUrl = "http://127.0.0.1:5000/business/register"
+function updateBusinessDetails(data){
+    const apiUrl = "http://127.0.0.1:5000/business/<id>"
     const requestOptions = {
         method: 'PUT',
-        headers: { ...authHeader(), "Content-type": "multipart/form-data"}, 
-        body: JSON.stringify(business)
+        headers: { ...authHeader(), "Content-type": "application/json; charset=UTF-8"}, 
+        body: JSON.stringify(data)
     };
     return fetch(apiUrl, requestOptions).then(handleResponse);
 }
@@ -95,7 +96,7 @@ function getAllBusinesses(){
     return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 
-function getAllTopQuantity(){
+function getAllTopQuantity(id){
     const apiUrl = `http://127.0.0.1:5000/business/1/quantity`
     const requestOptions = {
         method: 'GET',
@@ -104,8 +105,17 @@ function getAllTopQuantity(){
     return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 
-function getAllTopQuality(){
+function getAllTopQuality(id){
     const apiUrl = `http://127.0.0.1:5000/business/1/quality`
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    }
+    return fetch(apiUrl, requestOptions).then(handleResponse);
+}
+
+function getChartData(id){
+    const apiUrl = `http://127.0.0.1:5000/business/2/charts/data/90`
     const requestOptions = {
         method: 'GET',
         headers: authHeader()

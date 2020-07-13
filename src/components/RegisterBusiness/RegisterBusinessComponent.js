@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {userActions} from '../../_actions/user.actions';
 
-const RegisterBusinessComponent = () => {
+const RegisterBusinessComponent = (props) => {
     const name=useFormInput('');
     const abbreviation=useFormInput('');
     const company_address=useFormInput('');
@@ -46,7 +46,7 @@ const RegisterBusinessComponent = () => {
                     <div>
                     </div>
                     <div className="form-section">
-                        <input {...name} className="inputField" title="Business Name" placeholder="Business Name" />
+                        <input {...name} className="inputField" title="Business Name" placeholder="Business Name" value={props.name} />
                         <input {...abbreviation} className="small" placeholder="Business Abbreviation" />
                     </div>
                     <div className="form-section">

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import PieChartComponent from '../Dashboard/Piechart/PiechartComponent';
 import GraphComponent from '../Dashboard/Graph/GraphComponent';
 import {userActions} from '../../_actions/user.actions';
@@ -10,6 +10,7 @@ const DashboardComponent = () => {
     const topQuality = useSelector(state => state.topQuality)
     const user = useSelector(state=>state.authentication.user)
     const dispatch = useDispatch();
+    const [viewAll, setViewAll] = useState(false)
 
     useEffect(() => {
         dispatch(userActions.getAllTopQuantity());
@@ -22,8 +23,11 @@ const DashboardComponent = () => {
                 <p>Business Name:  Shoe Trading Inc</p>
                 <p>User: Otis Otis</p>
             </div>
+            <div className="businessHeader">
+                <button>View all uploads</button>
+            </div>
             <div className="graphs">
-                <PieChartComponent/>
+                <PieChartComponent />
             <div className="productInfo">
                 <div className="items">
                     <p className="itemTitle">Top Product:</p>
