@@ -10,6 +10,7 @@ export const userService = {
     UploadCsvFile,
     getAllTopQuantity,
     getAllTopQuality,
+    updateBusinessDetails,
     delete:_delete
 };
 
@@ -57,6 +58,16 @@ function registerBusiness(business){
     const apiUrl = "http://127.0.0.1:5000/business/register"
     const requestOptions = {
         method: 'POST',
+        headers: { ...authHeader(), "Content-type": "multipart/form-data"}, 
+        body: JSON.stringify(business)
+    };
+    return fetch(apiUrl, requestOptions).then(handleResponse);
+}
+
+function updateBusinessDetails(business){
+    const apiUrl = "http://127.0.0.1:5000/business/register"
+    const requestOptions = {
+        method: 'PUT',
         headers: { ...authHeader(), "Content-type": "multipart/form-data"}, 
         body: JSON.stringify(business)
     };
@@ -125,3 +136,4 @@ function handleResponse(response){
         return data;
     });
 }
+

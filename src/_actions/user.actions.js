@@ -134,6 +134,28 @@ function registerBusiness(business){
     function failure(error){ return { type: userConstants.REGISTER_FAILURE, error } }
 }
 
+function updateBusinessDetails(business){
+    return dispatch=>{
+        dispatch(request(business));
+
+        userService.updateBusinessDetails(business)
+            .then(
+                business=>{
+                    dispatch(success());
+                    dispatch(alertActions.success('Data Updated Successfully'));
+                    history.push("/")
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+    function request(business){ return {type: userConstants.REGISTER_REQUEST, business}}
+    function success(business){ return { type: userConstants.REGISTER_SUCCESS, business } }
+    function failure(error){ return { type: userConstants.REGISTER_FAILURE, error } }
+}
+
 function UploadCsvFile(file){
     return dispatch=>{
         dispatch(request(file));
