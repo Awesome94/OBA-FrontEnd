@@ -3,6 +3,7 @@ import {userService } from '../_services';
 import {alertActions} from './';
 import { history } from "../helpers";
 import { business } from '../_reducers/business.reducer';
+import { chartData } from '../_reducers/charts.reducer';
 
 
 export const userActions = {
@@ -12,8 +13,8 @@ export const userActions = {
     registerBusiness,
     getAllBusinesses,
     UploadCsvFile,
-    getAllTopQuality,
-    getAllTopQuantity,
+    getTopByValue,
+    getTopByQuantity,
     getChartData,
     updateBusinessDetails,
     delete:_delete
@@ -81,11 +82,11 @@ function getAllBusinesses() {
     function success(business) { return { type: userConstants.GETALL_SUCCESS, business } }
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
-function getAllTopQuantity() {
+function getTopByQuantity() {
     return dispatch => {
         dispatch(request());
 
-        userService.getAllTopQuantity()
+        userService.getTopByQuantity()
             .then(
                 business => dispatch(success(business)),
                 error => dispatch(failure(error.toString()))
@@ -97,11 +98,11 @@ function getAllTopQuantity() {
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 
-function getAllTopQuality() {
+function getTopByValue() {
     return dispatch => {
         dispatch(request());
 
-        userService.getAllTopQuality()
+        userService.getTopByValue()
             .then(
                 business => dispatch(success(business)),
                 error => dispatch(failure(error.toString()))
@@ -116,16 +117,15 @@ function getAllTopQuality() {
 function getChartData() {
     return dispatch => {
         dispatch(request());
-
         userService.getChartData()
             .then(
-                business => dispatch(success(business)),
+                chartData => dispatch(success(chartData)),
                 error => dispatch(failure(error.toString()))
             );
     };
 
-    function request(items) { return { type: userConstants.GETALL_REQUEST } }
-    function success(items) { return { type: userConstants.GETALL_SUCCESS, items } }
+    function request(chartData) { return { type: userConstants.GETALL_REQUEST } }
+    function success(chartData) { return { type: userConstants.GETALL_SUCCESS, chartData } }
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 

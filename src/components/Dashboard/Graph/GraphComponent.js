@@ -1,5 +1,5 @@
 import React from 'react';
-import {ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import {ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 const data = [{name: 'Page A', uv: 590, pv: 800, amt: 1400},
               {name: 'Page B', uv: 868, pv: 967, amt: 1506},
               {name: 'Page C', uv: 1397, pv: 1098, amt: 989},

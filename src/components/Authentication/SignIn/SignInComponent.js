@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from "react-router-dom";
 import {useDispatch, useSelector } from 'react-redux';
 
 import {userActions} from '../../../_actions';
@@ -28,14 +27,9 @@ const SignInComponent = (props) => {
         <div className="form-container sign-in-container">
             <form className="auth" onSubmit={handleLogin}>
                 <h1>Sign In</h1>
-                <div className="social-container">
-                    <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
-                    <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
-                </div>
-                <span>or use your account</span>
+                <span>to use your OBA-Analyzer account</span>
                 <input className="auth" type="email" {...email} placeholder="Email address" />
                 <input className="auth" type="password" {...password} placeholder="Password" />
-                <a href="#">Forgot your password?</a>
                 <button className="action">Sign In</button>
             </form>
         </div>

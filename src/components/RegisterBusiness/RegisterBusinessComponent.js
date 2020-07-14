@@ -46,22 +46,22 @@ const RegisterBusinessComponent = (props) => {
                     <div>
                     </div>
                     <div className="form-section">
-                        <input {...name} className="inputField" title="Business Name" placeholder="Business Name" value={props.name} />
-                        <input {...abbreviation} className="small" placeholder="Business Abbreviation" />
+                        <input {...name} className="inputField" title="Business Name" placeholder="Business Name" value={props.name}  required/>
+                        <input {...abbreviation} className="small" placeholder="Business Abbreviation" required/>
                     </div>
                     <div className="form-section">
-                        <input {...company_address} className="inputField" placeholder="Company Address" />
-                        <input {...country} className="small" placeholder="Country" />
+                        <input {...company_address} className="inputField" placeholder="Company Address" required/>
+                        <input {...country} className="small" placeholder="Country" required/>
                     </div>
                     <div className="form-section">
-                        <input {...countries_of_operation} className="long" placeholder="Countries of Operation" />
+                        <input {...countries_of_operation} className="long" placeholder="Countries of Operation" required/>
                     </div>
                     <div className="form-section">
-                        <input {...annual_sales_revenue} className="inputField" placeholder="Annual Sales Revenue" />
-                        <input {...entity} className="small" placeholder="Entity" />
+                        <input {...annual_sales_revenue} className="inputField" placeholder="Annual Sales Revenue" required/>
+                        <input {...entity} className="small" placeholder="Entity" required/>
                     </div>
                     <div className="form-section">
-                        <input {...software} className="long" placeholder="Accounting Software" />
+                        <input {...software} className="long" placeholder="Accounting Software" required/>
                     </div>
                 <button className="action">Submit</button>
                 </form>
@@ -84,3 +84,4 @@ const useFormInput = initialValue => {
 }
 
 export default RegisterBusinessComponent;
+

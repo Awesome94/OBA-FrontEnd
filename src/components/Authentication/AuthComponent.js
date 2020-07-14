@@ -23,13 +23,13 @@ const AuthComponent = () => {
                     <div className="overlay-panel overlay-left">
                         <h1>Welcome Back!</h1>
                         <p>
-                            To keep connected with us please login with your personal info
+                            Please login with your personal account info that you signed up with
                         </p>
                         <button className="action ghost" id="signIn" onClick={OnClickSignIn}>Sign In</button>
                     </div>
                     <div className="overlay-panel overlay-right">
-                        <h1>Hello, Friend!</h1>
-                        <p>Enter your personal details and start journey with us</p>
+                        <h1>Hola!</h1>
+                        <p>Enter your personal details to get started</p>
                         <button className="action ghost" id="signUp" onClick={OnclickSignUp}>Sign Up</button>
                     </div>
                 </div>

@@ -1,11 +1,10 @@
 import React,{useEffect, useState} from 'react';
 import {useDispatch, connect, useSelector} from 'react-redux';
 import {userActions} from '../../_actions';
-import { Table, Form, Modal, Button} from 'react-bootstrap';
+import { Table, Modal, Button} from 'react-bootstrap';
 import './business.css'
 
 const BusinessTable = ({items}) => {
-  const businesses = useSelector(state => state.business)
   const user = useSelector(state => state.authentication.user)
   const [files, setfiles] = useState([''])
   const [Uploading, setUploading] = useState(false)
@@ -96,7 +95,7 @@ const DeleteBusinessModal=(props)=>{
                 <td>{business.name}</td>
 
                 <td> 
-                  <i style={{cursor:"pointer"}} onClick={openFileDialog} className="material-icons md-24">publish</i>
+                  <i style={{cursor:"pointer"}} onClick={openFileDialog} className="material-icons md-24 blue">publish</i>
                     <input
                     ref={fileInputRef}
                     className="FileInput"
@@ -108,7 +107,7 @@ const DeleteBusinessModal=(props)=>{
                    
                 </td>
                 <td>
-                  <i style={{cursor:"pointer"}} onClick={()=>{updateBusinessData(business.id)}}  className="material-icons md-24">edit</i>
+                  <i style={{cursor:"pointer"}} onClick={()=>{updateBusinessData(business.id)}}  className="material-icons md-24 green">edit</i>
                 </td>
                 <td>
                <i style={{cursor:"pointer"}} onClick={()=>setModalAndID(business.id)} className="material-icons md-24 red">delete</i>

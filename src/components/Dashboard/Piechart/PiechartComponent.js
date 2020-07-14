@@ -21,7 +21,7 @@ const PieChartComponent=(props)=>{
   	return (
     	<PieChart width={800} height={400} onMouseEnter={this.onPieEnter}>
         <Pie
-          data={data} 
+          data={data}
           cx={300} 
           cy={200} 
           labelLine={false}

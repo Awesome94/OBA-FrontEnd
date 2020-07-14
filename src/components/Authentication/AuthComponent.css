@@ -31,9 +31,8 @@ a {
 }
 
 button.action {
-    border-radius: 20px;
-    border: 1px solid #FF4B2B;
-    background-color: #FF4B2B;
+    border: 1px solid #0275d8;
+    background-color: #0275d8;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -41,12 +40,14 @@ button.action {
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
+    outline: none;
+    margin: 25px;
 }
 
 button.registerd {
     border-radius: 20px;
-    border: 1px solid #FF4B2B;
-    background-color: #FF4B2B;
+    border: 1px solid #0275d8;
+    background-color: #0275d8;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -57,6 +58,8 @@ button.registerd {
 
 button:active {
     transform: scale(0.95);
+    box-shadow: none;
+    outline: none;
 }
 
 button:focus {
@@ -95,13 +98,12 @@ input.auth {
     border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     overflow: hidden;
-    width: 40%;
+    width: 30%;
     min-height: 480px;
 }
 
 .form-container {
     position: absolute;
-    top: 0;
     height: 100%;
     transition: all 0.6s ease-in-out;
 }
@@ -159,9 +161,9 @@ input.auth {
 }
 
 .overlay {
-    background: #FF416C;
-    background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-    background: linear-gradient(to right, #FF4B2B, #FF416C);
+    background: #0275d8;
+    background: -webkit-linear-gradient(to right, #0275d8, #0275d8);
+    background: linear-gradient(to right, #0275d8, #0275d8);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
@@ -242,7 +244,7 @@ footer p {
 }
 
 footer i {
-    color: red;
+    color: 0275d8;
 }
 
 footer a {

@@ -1,5 +1,5 @@
-import React, { Component, useEffect } from 'react';
-import { BrowserRouter, Redirect, Router, Route, Switch } from 'react-router-dom';
+import React, {useEffect } from 'react';
+import { Redirect, Router, Route, Switch } from 'react-router-dom';
 import {useDispatch, useSelector } from 'react-redux';
 
 import {history} from '../src/helpers';

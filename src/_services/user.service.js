@@ -8,8 +8,8 @@ export const userService = {
     register,
     getAllBusinesses,
     UploadCsvFile,
-    getAllTopQuantity,
-    getAllTopQuality,
+    getTopByQuantity,
+    getTopByValue,
     updateBusinessDetails,
     getChartData,
     delete:_delete
@@ -96,8 +96,8 @@ function getAllBusinesses(){
     return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 
-function getAllTopQuantity(id){
-    const apiUrl = `http://127.0.0.1:5000/business/1/quantity`
+function getTopByQuantity(id){
+    const apiUrl = `http://127.0.0.1:5000/business/2/quantity`
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
@@ -105,8 +105,8 @@ function getAllTopQuantity(id){
     return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 
-function getAllTopQuality(id){
-    const apiUrl = `http://127.0.0.1:5000/business/1/quality`
+function getTopByValue(id){
+    const apiUrl = `http://127.0.0.1:5000/business/2/value`
     const requestOptions = {
         method: 'GET',
         headers: authHeader()

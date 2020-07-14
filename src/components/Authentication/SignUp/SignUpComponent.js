@@ -26,11 +26,6 @@ const SignUpComponent = () => {
         <div className="form-container sign-up-container">
             <form className="auth" onSubmit={handleRegistration}>
                 <h1>Create Account</h1>
-                <div className="social-container">
-                    <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
-                    <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
-                </div>
-                <span>or use your email for registration</span>
                 <input className="auth" type="text" {...firstname}placeholder="First name" />
                 <input className="auth" type="text" {...lastname}placeholder="Last name" />
                 <input className="auth" type="text" {...email}placeholder="Email address" />
