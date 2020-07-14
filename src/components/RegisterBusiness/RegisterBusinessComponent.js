@@ -47,21 +47,21 @@ const RegisterBusinessComponent = (props) => {
                     </div>
                     <div className="form-section">
                         <input {...name} className="inputField" title="Business Name" placeholder="Business Name" value={props.name}  required/>
-                        <input {...abbreviation} className="small" placeholder="Business Abbreviation" required/>
+                        <input {...abbreviation} className="small" placeholder="Business Abbreviation" value={props.abbreviation}required/>
                     </div>
                     <div className="form-section">
-                        <input {...company_address} className="inputField" placeholder="Company Address" required/>
-                        <input {...country} className="small" placeholder="Country" required/>
+                        <input {...company_address} className="inputField" placeholder="Company Address" value={props.address}required/>
+                        <input {...country} className="small" placeholder="Country" value={props.country} required/>
                     </div>
                     <div className="form-section">
-                        <input {...countries_of_operation} className="long" placeholder="Countries of Operation" required/>
+                        <input {...countries_of_operation} className="long" placeholder="Countries of Operation" value={props.countries_of_operation}required/>
                     </div>
                     <div className="form-section">
-                        <input {...annual_sales_revenue} className="inputField" placeholder="Annual Sales Revenue" required/>
-                        <input {...entity} className="small" placeholder="Entity" required/>
+                        <input {...annual_sales_revenue} className="inputField" placeholder="Annual Sales Revenue" value={props.annual_sales_revenue}required/>
+                        <input {...entity} className="small" placeholder="Entity" value={props.entity}required/>
                     </div>
                     <div className="form-section">
-                        <input {...software} className="long" placeholder="Accounting Software" required/>
+                        <input {...software} className="long" placeholder="Accounting Software" value={props.software}required/>
                     </div>
                 <button className="action">Submit</button>
                 </form>

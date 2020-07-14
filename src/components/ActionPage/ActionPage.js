@@ -18,7 +18,7 @@ const ActionPage = () => {
         <div className="actionPageContainer">
             <div className="regButton">
                 <Link to="/register">
-                     <Button variant="primary" size="lg" active> Register Business</Button>
+                     <Button color="bg-primary" size="lg" active> Register Business</Button>
                      </Link>
             </div>
             <div>

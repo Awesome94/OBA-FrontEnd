@@ -31,8 +31,8 @@ a {
 }
 
 button.action {
-    border: 1px solid #0275d8;
-    background-color: #0275d8;
+    border: 1px solid #007bff;
+    background-color: #007bff;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -46,8 +46,8 @@ button.action {
 
 button.registerd {
     border-radius: 20px;
-    border: 1px solid #0275d8;
-    background-color: #0275d8;
+    border: 1px solid #007bff;
+    background-color: #007bff;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -161,9 +161,9 @@ input.auth {
 }
 
 .overlay {
-    background: #0275d8;
-    background: -webkit-linear-gradient(to right, #0275d8, #0275d8);
-    background: linear-gradient(to right, #0275d8, #0275d8);
+    background: #007bff;
+    background: -webkit-linear-gradient(to right, #007bff, #007bff);
+    background: linear-gradient(to right, #007bff, #007bff);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
@@ -244,7 +244,7 @@ footer p {
 }
 
 footer i {
-    color: 0275d8;
+    color: 007bff;
 }
 
 footer a {

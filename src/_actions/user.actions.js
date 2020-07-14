@@ -137,7 +137,7 @@ function registerBusiness(business){
         userService.registerBusiness(business)
             .then(
                 business=>{
-                    dispatch(success());
+                    dispatch(success(business));
                     dispatch(alertActions.success('Business Registered Successfully'));
                     history.push("/")
                 },

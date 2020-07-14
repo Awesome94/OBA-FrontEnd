@@ -5,13 +5,14 @@ export default function UpdateBusiness() {
     return (
         <div>
             <RegisterBusiness
-            name=""
-            abbreviation=""
-            country=""
-            operation=""
-            revenue=""
-            entity=""
-            software=""
+            name="Awesome"
+            address="Bugolobi"
+            abbreviation="Aws"
+            country="Uganda"
+            countries_of_operation="Uganda, Kenya"
+            annual_sales_revenue="213113"
+            entity="software"
+            software="Tally"
             />
         </div>
     )
