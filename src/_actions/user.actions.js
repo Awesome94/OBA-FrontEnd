@@ -4,7 +4,6 @@ import { userService } from '../_services';
 import { alertActions } from '.';
 import { history } from '../helpers';
 import { business } from '../_reducers/business.reducer';
-import { chartData } from '../_reducers/charts.reducer';
 
 export const userActions = {
   login,
@@ -15,7 +14,6 @@ export const userActions = {
   UploadCsvFile,
   getTopByValue,
   getTopByQuantity,
-  getChartData,
   updateBusinessDetails,
   delete: _delete,
   setEditBusiness,
@@ -116,21 +114,6 @@ function getTopByValue() {
   function failure(error) { return { type: userConstants.GETALL_FAILURE, error }; }
 }
 
-function getChartData() {
-  return (dispatch) => {
-    dispatch(request());
-    userService.getChartData()
-      .then(
-        (chartData) => dispatch(success(chartData)),
-        (error) => dispatch(failure(error.toString())),
-      );
-  };
-
-  function request(chartData) { return { type: userConstants.GETALL_REQUEST }; }
-  function success(chartData) { return { type: userConstants.GETALL_SUCCESS, chartData }; }
-  function failure(error) { return { type: userConstants.GETALL_FAILURE, error }; }
-}
-
 function registerBusiness(business) {
   return (dispatch) => {
     dispatch(request(business));
@@ -172,7 +155,7 @@ function updateBusinessDetails(business) {
         (business) => {
           dispatch(success());
           dispatch(alertActions.success('Data Updated Successfully'));
-          history.push('/');
+          history.push('/dashboard');
         },
         (error) => {
           dispatch(failure(error.toString()));
@@ -191,18 +174,20 @@ function UploadCsvFile(file) {
     userService.UploadCsvFile(file)
       .then(
         (fileData) => {
-          dispatch(success(fileData));
+          const graphData = getGraphData(fileData);
+          dispatch(success(graphData));
           dispatch(alertActions.success('File Uploaded Successfully'));
           history.push('/dashboard');
         },
         (error) => {
           dispatch(failure(error.toString()));
           dispatch(alertActions.error(error.toString()));
+          history.push('/');
         },
       );
   };
   function request(file) { return { type: userConstants.UPLOAD_REQUEST, file }; }
-  function success(fileData) { return { type: userConstants.UPLOAD_SUCCESS, fileData }; }
+  function success(graphData) { return { type: userConstants.UPLOAD_SUCCESS, graphData }; }
   function failure(error) { return { type: userConstants.UPLOAD_FAILURE, error }; }
 }
 
@@ -221,4 +206,48 @@ function _delete(id) {
   function request(id) { return { type: userConstants.DELETE_REQUEST, id }; }
   function success(id) { return { type: userConstants.DELETE_SUCCESS, id }; }
   function failure(id, error) { return { type: userConstants.DELETE_FAILURE, id, error }; }
+}
+
+function getGraphData(data) {
+  const sortableUnits = [];
+  const sortableQty = [];
+  const topValue = {};
+  const topQuantity = {};
+  const {
+    unit_amount: unitAmount, quantity, total_transaction_amount: amount, item,
+  } = data;
+  const OrderKey = Object.keys(data.transaction).filter((keys) => data.transaction[keys] === 'Order');
+  const orders = OrderKey.map((key) => amount[key]).reduce((current, next) => current + next);
+  const OrderPaymentKey = Object.keys(data.transaction).filter((keys) => data.transaction[keys] === 'Order payements');
+  const ordersPayements = OrderPaymentKey.map((key) => amount[key])
+    .reduce((current, next) => current + next, 0);
+  const incoming = orders - ordersPayements;
+
+  const billKey = Object.keys(data.transaction).filter((keys) => data.transaction[keys] === 'Bill');
+  const bills = billKey.map((key) => amount[key]).reduce((current, next) => current + next);
+  const billPayementsKey = Object.keys(data.transaction).filter((keys) => data.transaction[keys] === 'Bill payements');
+  const billPayements = billPayementsKey.map((key) => amount[key]).reduce((current, next) => current + next, 0);
+  const outgoing = bills - billPayements;
+
+  Object.keys(unitAmount).forEach((key) => sortableUnits.push([key, unitAmount[key]]));
+
+  sortableUnits.sort((a, b) => b[1] - a[1]);
+  const unitAmountKeys = sortableQty.slice(0, 5);
+
+  // eslint-disable-next-line no-return-assign
+  unitAmountKeys.map((key) => topValue[item[key[0]]] = unitAmount[key[0]]);
+
+  Object.keys(quantity).forEach((key) => sortableQty.push([key, quantity[key]]));
+  sortableQty.sort((a, b) => b[1] - a[1]);
+  const quantityKeys = sortableQty.slice(0, 5);
+
+  // eslint-disable-next-line no-return-assign
+  quantityKeys.map((key) => topQuantity[item[key[0]]] = quantity[key[0]]);
+
+  return {
+    topValue,
+    incoming,
+    topQuantity,
+    outgoing,
+  };
 }

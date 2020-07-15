@@ -87,23 +87,12 @@ const RegisterBusinessComponent = (props) => {
           <div className="form-section">
             <input onChange={onSoftwareChange} className="long" placeholder="Accounting Software" value={software} required />
           </div>
-          <button className="action">Submit</button>
+          <button type="button" className="action">Submit</button>
         </form>
       </div>
       <div />
     </div>
   );
-};
-
-const useFormInput = (initialValue) => {
-  const [value, setValue] = useState(initialValue);
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
-  return {
-    value,
-    onChange: handleChange,
-  };
 };
 
 const mapStateToProps = ({ business }) => ({ items: business.businessData });

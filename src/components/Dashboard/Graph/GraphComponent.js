@@ -17,9 +17,7 @@ const data = [{
 },
 {
   name: 'Page E', uv: 1520, pv: 1108, amt: 1100,
-},
-{
-  name: 'Page F', uv: 1400, pv: 680, amt: 1700,
+
 }];
 
 const GraphComponent = () => (

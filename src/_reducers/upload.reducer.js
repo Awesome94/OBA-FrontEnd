@@ -6,7 +6,7 @@ export function uploadCsv(state = {}, action) {
       return { uploading: true };
     case userConstants.UPLOAD_SUCCESS:
       return {
-        items: action.file,
+        items: action.graphData,
       };
     case userConstants.UPLOAD_FAILURE:
       return {};
