@@ -175,6 +175,8 @@ function UploadCsvFile(file) {
       .then(
         (fileData) => {
           const graphData = getGraphData(fileData);
+          localStorage.setItem('graphData', JSON.stringify(graphData));
+
           dispatch(success(graphData));
           dispatch(alertActions.success('File Uploaded Successfully'));
           history.push('/dashboard');
@@ -211,8 +213,10 @@ function _delete(id) {
 function getGraphData(data) {
   const sortableUnits = [];
   const sortableQty = [];
-  const topValue = {};
-  const topQuantity = {};
+  const topValue = [];
+  const topQuantity = [];
+  const topValueItems = {};
+  const topQuantityItems = {};
   const {
     unit_amount: unitAmount, quantity, total_transaction_amount: amount, item,
   } = data;
@@ -228,21 +232,36 @@ function getGraphData(data) {
   const billPayementsKey = Object.keys(data.transaction).filter((keys) => data.transaction[keys] === 'Bill payements');
   const billPayements = billPayementsKey.map((key) => amount[key]).reduce((current, next) => current + next, 0);
   const outgoing = bills - billPayements;
-
   Object.keys(unitAmount).forEach((key) => sortableUnits.push([key, unitAmount[key]]));
 
   sortableUnits.sort((a, b) => b[1] - a[1]);
-  const unitAmountKeys = sortableQty.slice(0, 5);
+  const unitAmountKeys = sortableUnits;
 
   // eslint-disable-next-line no-return-assign
-  unitAmountKeys.map((key) => topValue[item[key[0]]] = unitAmount[key[0]]);
+
+  for (let i = 0; i < unitAmountKeys.length; i++) {
+    const key = unitAmountKeys[i];
+    const itemName = item[key[0]];
+    if (!(itemName in topValueItems) && topValue.length < 6) {
+      topValueItems[item[key[0]]] = 1;
+      topValue.push({ Item: item[key[0]], Value: unitAmount[key[0]] });
+    }
+  }
 
   Object.keys(quantity).forEach((key) => sortableQty.push([key, quantity[key]]));
   sortableQty.sort((a, b) => b[1] - a[1]);
-  const quantityKeys = sortableQty.slice(0, 5);
+
+  const quantityKeys = sortableQty;
 
   // eslint-disable-next-line no-return-assign
-  quantityKeys.map((key) => topQuantity[item[key[0]]] = quantity[key[0]]);
+  for (let i = 0; i < quantityKeys.length; i++) {
+    const key = quantityKeys[i];
+    const itemName = item[key[0]];
+    if (!(itemName in topQuantityItems) && topQuantity.length < 6) {
+      topQuantityItems[item[key[0]]] = 1;
+      topQuantity.push({ Item: item[key[0]], Quantity: quantity[key[0]] });
+    }
+  }
 
   return {
     topValue,
