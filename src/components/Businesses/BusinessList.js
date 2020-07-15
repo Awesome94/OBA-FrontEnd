@@ -1,50 +1,50 @@
-import React,{useEffect, useState} from 'react';
-import {useDispatch, connect, useSelector} from 'react-redux';
-import {userActions} from '../../_actions';
-import { Table, Modal, Button} from 'react-bootstrap';
-import './business.css'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, connect, useSelector } from 'react-redux';
+import { Table, Modal, Button } from 'react-bootstrap';
+import { userActions } from '../../_actions';
+import './business.css';
 
-const BusinessTable = ({items}) => {
-  const user = useSelector(state => state.authentication.user)
-  const [files, setfiles] = useState([''])
-  const [Uploading, setUploading] = useState(false)
-  const dispatch = useDispatch()
+const BusinessTable = ({ items }) => {
+  const user = useSelector((state) => state.authentication.user);
+  const [files, setfiles] = useState(['']);
+  const [Uploading, setUploading] = useState(false);
+  const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState(false);
-  const [businessId, setBusinessId] = useState()
-  const [bussinessList, setBussinessList] = useState({items})
+  const [businessId, setBusinessId] = useState();
+  const [bussinessList, setBussinessList] = useState({ items });
+  const businesses = useSelector((state) => state.business.items);
 
   useEffect(() => {
     dispatch(userActions.getAllBusinesses());
-    }, []);
+  }, []);
 
-  const fileInputRef = React.createRef()
+  const fileInputRef = React.createRef();
 
   const openFileDialog = () => {
-    fileInputRef.current.click()
-}
+    fileInputRef.current.click();
+  };
 
-const onFilesAdded=evt=> {
-  const files = evt.target.files[0];
-    dispatch(userActions.UploadCsvFile(files))
-}
+  const onFilesAdded = (evt) => {
+    const files = evt.target.files[0];
+    dispatch(userActions.UploadCsvFile(files));
+  };
 
-const updateBusinessData=(id)=>{
-  dispatch(userActions.updateBusinessDetails(id))
-}
+  const updateBusinessData = (data) => {
+    dispatch(userActions.setEditBusiness(data));
+  };
 
-const handleDelete=(id)=>{
-  dispatch(userActions.delete(id))
-  setBussinessList(items)
-  setModalShow(false)
-}
+  const handleDelete = (id) => {
+    dispatch(userActions.delete(id));
+    setBussinessList(items);
+    setModalShow(false);
+  };
 
-const setModalAndID=(id)=>{
-  setModalShow(true)
-  setBusinessId(id)
-}
+  const setModalAndID = (id) => {
+    setModalShow(true);
+    setBusinessId(id);
+  };
 
-const DeleteBusinessModal=(props)=>{
-  return (
+  const DeleteBusinessModal = (props) => (
     <Modal
       {...props}
       size="md"
@@ -63,14 +63,13 @@ const DeleteBusinessModal=(props)=>{
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Cancel</Button>
-        <Button variant="danger" onClick={()=>{handleDelete(businessId)}}>Delete</Button>
+        <Button variant="danger" onClick={() => { handleDelete(businessId); }}>Delete</Button>
       </Modal.Footer>
     </Modal>
   );
-}
-    return ( 
-      <div>
-        <Table responsive>
+  return (
+    <div>
+      <Table responsive>
         <thead>
           <tr>
             <th>Business Name</th>
@@ -84,37 +83,35 @@ const DeleteBusinessModal=(props)=>{
           </tr>
         </thead>
         <tbody>
-        {          
-          items && items.map((business)=>{
-            return (
-              <tr>
-                <td style={{cursor:"pointer"}} onClick={()=>{alert("awesome")}}>{business.name}</td>
-                <td>{business.abbreviation}</td>
-                <td>{business.company_address}</td>
-                <td>{business.country}</td>
-                <td>{business.name}</td>
+          {
+          items && items.map((business) => (
+            <tr>
+              <td style={{ cursor: 'pointer' }} onClick={() => { alert('awesome'); }}>{business.name}</td>
+              <td>{business.abbreviation}</td>
+              <td>{business.company_address}</td>
+              <td>{business.country}</td>
+              <td>{business.name}</td>
 
-                <td> 
-                  <i style={{cursor:"pointer"}} onClick={openFileDialog} className="material-icons md-24 blue">publish</i>
-                    <input
-                    ref={fileInputRef}
-                    className="FileInput"
-                    type="file"
-                    multiple
-                    title=""
-                    onChange={onFilesAdded}
+              <td>
+                <i style={{ cursor: 'pointer' }} onClick={openFileDialog} className="material-icons md-24 blue">publish</i>
+                <input
+                  ref={fileInputRef}
+                  className="FileInput"
+                  type="file"
+                  multiple
+                  title=""
+                  onChange={onFilesAdded}
                 />
-                   
-                </td>
-                <td>
-                  <i style={{cursor:"pointer"}} onClick={()=>{updateBusinessData(business.id)}}  className="material-icons md-24 green">edit</i>
-                </td>
-                <td>
-               <i style={{cursor:"pointer"}} onClick={()=>setModalAndID(business.id)} className="material-icons md-24 red">delete</i>
-                </td>
+
+              </td>
+              <td>
+                <i style={{ cursor: 'pointer' }} onClick={() => { updateBusinessData(business); }} className="material-icons md-24 green">edit</i>
+              </td>
+              <td>
+                <i style={{ cursor: 'pointer' }} onClick={() => setModalAndID(business.id)} className="material-icons md-24 red">delete</i>
+              </td>
             </tr>
-              )
-          })
+          ))
           }
         </tbody>
       </Table>
@@ -122,11 +119,9 @@ const DeleteBusinessModal=(props)=>{
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
-      </div>
-     );
-}
-// const mapDispatchToProps = dispatch => ({
-//   userActions.UploadCsvFile: file=>dispatch(userActions.UploadCsvFile(file))
-// })
-const mapStateToProps = ({business})=>({items: business.items})
+    </div>
+  );
+};
+
+const mapStateToProps = ({ business }) => ({ items: business.items });
 export default connect(mapStateToProps, {})(BusinessTable);
