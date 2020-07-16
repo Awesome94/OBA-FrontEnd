@@ -67,7 +67,7 @@ const RegisterBusinessComponent = (props) => {
     <div className="reg-container">
       <div className="reg-business-container">
         <Link to="/" className="backLink">Back</Link>
-        <form className="business" onSubmit={handleRegisterBusiness}>
+        <form className="business">
           <div />
           <div className="form-section">
             <input onChange={onNameChange} className="inputField" title="Business Name" placeholder="Business Name" value={name} required />
@@ -87,7 +87,7 @@ const RegisterBusinessComponent = (props) => {
           <div className="form-section">
             <input onChange={onSoftwareChange} className="long" placeholder="Accounting Software" value={software} required />
           </div>
-          <button type="button" className="action">Submit</button>
+          <button type="button" onClick={handleRegisterBusiness} className="action">Submit</button>
         </form>
       </div>
       <div />

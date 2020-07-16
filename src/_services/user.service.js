@@ -16,13 +16,12 @@ export const userService = {
 };
 
 function login(email, password) {
-  const apiUrl = 'http://127.0.0.1:5000/login';
+  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/login`;
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-type': 'application/json; charset=UTF-8' },
     body: JSON.stringify({ email, password }),
   };
-
   return fetch(apiUrl, requestOptions)
     .then(handleResponse)
     .then((res) => {
@@ -35,17 +34,17 @@ function logout() {
   localStorage.removeItem('token');
 }
 
-function getById(id) {
-  const apiUrl = 'http://127.0.0.1:5000/users';
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader(),
-  };
-  return fetch(apiUrl / { id }, requestOptions).then(handleResponse);
-}
+// function getById(id) {
+//   const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/users/${id}`;
+//   const requestOptions = {
+//     method: 'GET',
+//     headers: authHeader(),
+//   };
+//   return fetch(apiUrl, requestOptions).then(handleResponse);
+// }
 
 function register(user) {
-  const apiUrl = 'http://127.0.0.1:5000/register';
+  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/register`;
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-type': 'application/json; charset=UTF-8' },
@@ -55,7 +54,8 @@ function register(user) {
 }
 
 function registerBusiness(business) {
-  const apiUrl = 'http://127.0.0.1:5000/business/register';
+  debugger;
+  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/business/register`;
   const requestOptions = {
     method: 'POST',
     headers: { ...authHeader(), 'Content-type': 'application/json; charset=UTF-8' },
@@ -65,7 +65,7 @@ function registerBusiness(business) {
 }
 
 function updateBusinessDetails(data) {
-  const apiUrl = 'http://127.0.0.1:5000/business/<id>';
+  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/business/{id}`;
   const requestOptions = {
     method: 'PUT',
     headers: { ...authHeader(), 'Content-type': 'application/json; charset=UTF-8' },
@@ -74,8 +74,8 @@ function updateBusinessDetails(data) {
   return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 
-function UploadCsvFile(file) {
-  const apiUrl = 'http://127.0.0.1:5000/business/2/upload';
+function UploadCsvFile(file, id) {
+  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/business/${id}/upload`;
   const formData = new FormData();
   formData.append('file', file);
   const requestOptions = {
@@ -87,7 +87,7 @@ function UploadCsvFile(file) {
 }
 
 function getAllBusinesses() {
-  const apiUrl = 'http://127.0.0.1:5000/businesses/all';
+  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/businesses/all`;
   const requestOptions = {
     method: 'GET',
     headers: authHeader(),
@@ -96,7 +96,7 @@ function getAllBusinesses() {
 }
 
 function getTopByQuantity(id) {
-  const apiUrl = 'http://127.0.0.1:5000/business/2/quantity';
+  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/business/${id}/quantity`;
   const requestOptions = {
     method: 'GET',
     headers: authHeader(),
@@ -105,7 +105,7 @@ function getTopByQuantity(id) {
 }
 
 function getTopByValue(id) {
-  const apiUrl = 'http://127.0.0.1:5000/business/2/value';
+  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/business/${id}/value`;
   const requestOptions = {
     method: 'GET',
     headers: authHeader(),
@@ -114,7 +114,7 @@ function getTopByValue(id) {
 }
 
 function getChartData(id) {
-  const apiUrl = 'http://127.0.0.1:5000/business/2/charts/data/90';
+  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/business/${id}/charts/data/90`;
   const requestOptions = {
     method: 'GET',
     headers: authHeader(),
@@ -123,7 +123,7 @@ function getChartData(id) {
 }
 
 function _delete(id) {
-  const apiUrl = 'http://127.0.0.1:5000/business';
+  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/business`;
   const requestOptions = {
     method: 'DELETE',
     headers: authHeader(),

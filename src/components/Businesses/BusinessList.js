@@ -20,13 +20,14 @@ const BusinessTable = ({ items }) => {
 
   const fileInputRef = React.createRef();
 
-  const openFileDialog = () => {
+  const openFileDialog = (id) => {
     fileInputRef.current.click();
   };
 
   const onFilesAdded = (evt) => {
     const files = evt.target.files[0];
-    dispatch(userActions.UploadCsvFile(files));
+    const id = parseInt(evt.target.title);
+    dispatch(userActions.UploadCsvFile(files, id));
   };
 
   const updateBusinessData = (data) => {
@@ -99,7 +100,7 @@ const BusinessTable = ({ items }) => {
                   className="FileInput"
                   type="file"
                   multiple
-                  title=""
+                  title={business.id}
                   onChange={onFilesAdded}
                 />
 

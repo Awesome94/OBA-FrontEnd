@@ -168,10 +168,10 @@ function updateBusinessDetails(business) {
   function failure(error) { return { type: userConstants.UPDATE_FAILURE, error }; }
 }
 
-function UploadCsvFile(file) {
+function UploadCsvFile(file, id) {
   return (dispatch) => {
     dispatch(request(file));
-    userService.UploadCsvFile(file)
+    userService.UploadCsvFile(file, id)
       .then(
         (fileData) => {
           const graphData = getGraphData(fileData);
