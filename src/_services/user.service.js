@@ -12,6 +12,7 @@ export const userService = {
   getTopByValue,
   updateBusinessDetails,
   getChartData,
+  viewBusinessChart,
   delete: _delete,
 };
 
@@ -34,15 +35,6 @@ function logout() {
   localStorage.removeItem('token');
 }
 
-// function getById(id) {
-//   const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/users/${id}`;
-//   const requestOptions = {
-//     method: 'GET',
-//     headers: authHeader(),
-//   };
-//   return fetch(apiUrl, requestOptions).then(handleResponse);
-// }
-
 function register(user) {
   const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/register`;
   const requestOptions = {
@@ -54,7 +46,6 @@ function register(user) {
 }
 
 function registerBusiness(business) {
-  debugger;
   const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/business/register`;
   const requestOptions = {
     method: 'POST',
@@ -115,6 +106,15 @@ function getTopByValue(id) {
 
 function getChartData(id) {
   const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/business/${id}/charts/data/90`;
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader(),
+  };
+  return fetch(apiUrl, requestOptions).then(handleResponse);
+}
+
+function viewBusinessChart(id) {
+  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/transactions/${id}`;
   const requestOptions = {
     method: 'GET',
     headers: authHeader(),

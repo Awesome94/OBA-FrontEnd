@@ -58,8 +58,7 @@ const RegisterBusinessComponent = (props) => {
         annual_sales_revenue: revenue,
         software,
         entity,
-      };
-      dispatch(userActions.registerBusiness(payload));
+      }; dispatch(userActions.registerBusiness(payload));
     }
   }
 

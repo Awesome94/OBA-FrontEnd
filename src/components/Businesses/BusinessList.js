@@ -10,6 +10,7 @@ const BusinessTable = ({ items }) => {
   const [Uploading, setUploading] = useState(false);
   const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState(false);
+  const [businessName, setBusinessName] = useState();
   const [businessId, setBusinessId] = useState();
   const [bussinessList, setBussinessList] = useState({ items });
   const businesses = useSelector((state) => state.business.items);
@@ -40,11 +41,15 @@ const BusinessTable = ({ items }) => {
     setModalShow(false);
   };
 
-  const setModalAndID = (id) => {
+  const setModalAndID = (data) => {
+    setBusinessName(data.name);
+    setBusinessId(data.id);
     setModalShow(true);
-    setBusinessId(id);
   };
 
+  const showBusinessChart = (id) => {
+    dispatch(userActions.viewBusinessChart(id));
+  };
   const DeleteBusinessModal = (props) => (
     <Modal
       {...props}
@@ -54,12 +59,20 @@ const BusinessTable = ({ items }) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Delete businessName and all it's Data?
+          Delete
+          {' '}
+          {businessName}
+          {' '}
+          and all it's Data?
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>
-          Delete Chanuka and all it's Transaction details
+          This will also delete all
+          {' '}
+          {businessName}
+          {' '}
+          Transaction details
         </p>
       </Modal.Body>
       <Modal.Footer>
@@ -77,7 +90,6 @@ const BusinessTable = ({ items }) => {
             <th>Abbreviation</th>
             <th>Address</th>
             <th>Country</th>
-            <th>Files Attached</th>
             <th>Upload .Csv</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -87,11 +99,10 @@ const BusinessTable = ({ items }) => {
           {
           items && items.map((business) => (
             <tr>
-              <td style={{ cursor: 'pointer' }} onClick={() => { alert('awesome'); }}>{business.name}</td>
+              <td style={{ cursor: 'pointer' }} onClick={() => { showBusinessChart(business.id); }}>{business.name}</td>
               <td>{business.abbreviation}</td>
               <td>{business.company_address}</td>
               <td>{business.country}</td>
-              <td>{business.name}</td>
 
               <td>
                 <i style={{ cursor: 'pointer' }} onClick={openFileDialog} className="material-icons md-24 blue">publish</i>
@@ -109,7 +120,7 @@ const BusinessTable = ({ items }) => {
                 <i style={{ cursor: 'pointer' }} onClick={() => { updateBusinessData(business); }} className="material-icons md-24 green">edit</i>
               </td>
               <td>
-                <i style={{ cursor: 'pointer' }} onClick={() => setModalAndID(business.id)} className="material-icons md-24 red">delete</i>
+                <i style={{ cursor: 'pointer' }} onClick={() => setModalAndID(business)} className="material-icons md-24 red">delete</i>
               </td>
             </tr>
           ))

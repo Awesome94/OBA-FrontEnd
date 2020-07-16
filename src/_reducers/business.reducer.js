@@ -39,6 +39,19 @@ export function business(state = initialState, action) {
         ...state,
         businessData: action.data,
       };
+    case userConstants.BUSINESS_TRANSACTIONS_REQUEST:
+      return {
+        loading: true,
+      };
+    case userConstants.SHOW_BUSINESS_TRANSACTIONS_SUCCESS:
+      return {
+        ...state,
+        items: action.transactions,
+      };
+    case userConstants.SHOW_BUSINESS_TRANSACTIONS_FAIL:
+      return {
+        error: action.error,
+      };
     case userConstants.SET_REGISTER_BUSINESS:
       return {
         ...state,
@@ -46,6 +59,18 @@ export function business(state = initialState, action) {
     case userConstants.RENDER_ACTION:
       return {
         ...state,
+      };
+    case userConstants.UPDATE_REQUEST:
+      return {
+        loading: true,
+      };
+    case userConstants.UPDATE_SUCCESS:
+      return {
+        ...state,
+      };
+    case userConstants.UPDATE_FAILURE:
+      return {
+        error: action.error,
       };
     case userConstants.DELETE_SUCCESS:
       // remove deleted business from state

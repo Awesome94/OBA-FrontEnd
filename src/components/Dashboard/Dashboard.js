@@ -10,12 +10,14 @@ import { userActions } from '../../_actions/user.actions';
 import './dashboard.css';
 
 const DashboardComponent = (props) => {
-  const user = useSelector((state) => state.authentication.user);
   const graphData = JSON.parse(localStorage.getItem('graphData'));
   const [incoming, setIncoming] = useState(props.items ? props.items.incoming : graphData.incoming);
   const [outgoing, setOutgoing] = useState(props.items ? props.items.outgoing : graphData.outgoing);
   const [topQtyData, setTopQtyData] = useState(props.items ? props.items.topQuantity : graphData.topQuantity);
   const [topValData, setTopValData] = useState(props.items ? props.items.topValue : graphData.topValue);
+  const [topProduct, setTopProduct] = useState(props.items ? props.items.topProduct : graphData.topProduct);
+  const [currentUser, setcurrentUser] = useState(props.items ? props.items.currentUser : graphData.currentUser);
+  const [businessName, setBusinessName] = useState(props.items ? props.items.businessName : graphData.businessName);
 
   const dispatch = useDispatch();
   const checkdata = () => {
@@ -26,8 +28,15 @@ const DashboardComponent = (props) => {
     <div className="dashContainer">
 
       <div className="businessHeader">
-        <p>Business Name:  Shoe Trading Inc</p>
-        <p>User: Otis Otis</p>
+        <p>
+          Business Name:
+          {businessName}
+        </p>
+        <p>
+          User:
+          {' '}
+          {currentUser}
+        </p>
       </div>
       <div className="businessHeader">
         <button onClick={() => checkdata()}>View all uploads</button>
@@ -37,7 +46,10 @@ const DashboardComponent = (props) => {
         <div className="productInfo">
           <div className="items">
             <p className="itemTitle">Top Product:</p>
-            <p className="content"> Shoes</p>
+            <p className="content">
+              {' '}
+              {topProduct}
+            </p>
           </div>
           <div className="items">
             <p className="itemTitle">Incoming Amount:</p>

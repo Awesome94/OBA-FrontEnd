@@ -18,6 +18,7 @@ export const userActions = {
   delete: _delete,
   setEditBusiness,
   setRegisterBusiness,
+  viewBusinessChart,
 };
 
 function login(email, password) {
@@ -141,18 +142,40 @@ function setEditBusiness(data) {
   return { type: userConstants.SET_EDIT_BUSINESS, data };
 }
 
+function viewBusinessChart(id) {
+  return (dispatch) => {
+    dispatch(request(id));
+    userService.viewBusinessChart(id)
+      .then(
+        (transaction) => {
+          localStorage.setItem('graphData', JSON.stringify(transaction));
+          dispatch(success(transaction));
+          dispatch(alertActions.success('Data retrieved Successfully'));
+          history.push('/dashboard');
+        },
+        (error) => {
+          dispatch(failure(error.toString()));
+          dispatch(alertActions.error(error.toString()));
+          history.push('/');
+        },
+      );
+  };
+  function request(id) { return { type: userConstants.BUSINESS_TRANSACTIONS_REQUEST, id }; }
+  function success(transaction) { return { type: userConstants.SHOW_BUSINESS_TRANSACTIONS_SUCCESS, transaction }; }
+  function failure(error) { return { type: userConstants.SHOW_BUSINESS_TRANSACTIONS_FAILURE, error }; }
+}
+
 function setRegisterBusiness() {
   return { type: userConstants.SET_REGISTER_BUSINESS };
 }
 
 function updateBusinessDetails(business) {
-  history.push('/edit');
   return (dispatch) => {
     dispatch(request(business));
 
     userService.updateBusinessDetails(business)
       .then(
-        (business) => {
+        () => {
           dispatch(success());
           dispatch(alertActions.success('Data Updated Successfully'));
           history.push('/dashboard');
@@ -164,7 +187,7 @@ function updateBusinessDetails(business) {
       );
   };
   function request(business) { return { type: userConstants.UPDATE_REQUEST, business }; }
-  function success(business) { return { type: userConstants.UPDATE_SUCCESS, business }; }
+  function success() { return { type: userConstants.UPDATE_SUCCESS }; }
   function failure(error) { return { type: userConstants.UPDATE_FAILURE, error }; }
 }
 
