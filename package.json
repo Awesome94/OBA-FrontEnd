@@ -44,18 +44,5 @@
         "eslint-plugin-react": "^7.20.3",
         "eslint-plugin-react-hooks": "^4.0.0",
         "path": "^0.12.7",
-        "react-select": "^3.1.0"
-    },
-    "browserslist": {
-        "production": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
     }
 }
