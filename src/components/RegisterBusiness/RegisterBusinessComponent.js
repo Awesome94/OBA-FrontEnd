@@ -198,7 +198,9 @@ const RegisterBusinessComponent = (props) => {
           <div className="form-section">
             <input onChange={onSoftwareChange} className="long" placeholder="Accounting Software" value={software} required />
           </div>
-          <button type="submit" className="action">Submit</button>
+          <div>
+            <input type="submit" className="action" value="Submit" />
+          </div>
         </form>
       </div>
       <div />
