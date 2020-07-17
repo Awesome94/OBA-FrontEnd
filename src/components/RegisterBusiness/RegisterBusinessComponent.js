@@ -101,7 +101,7 @@ const RegisterBusinessComponent = (props) => {
     }),
     option: (provided, state) => ({
       ...provided,
-      color: state.isSelected ? 'white' : 'green',
+      color: state.isSelected ? 'black' : 'green',
       width: '100%',
       align: 'left',
       background: '#FFFF',
