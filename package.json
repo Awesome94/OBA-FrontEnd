@@ -7,7 +7,7 @@
         "npm": "6.13 .4"
     },
     "scripts": {
-        "start": "REACT_APP_SERVER_BASE_URL=http://localhost:5000/api/v1 react-scripts start",
+        "start": "REACT_APP_SERVER_BASE_URL=https://oba-api.herokuapp.com/api/v1 react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test --env=jsdom",
         "eject": "react-scripts eject"
@@ -43,6 +43,7 @@
         "eslint-plugin-jsx-a11y": "^6.3.1",
         "eslint-plugin-react": "^7.20.3",
         "eslint-plugin-react-hooks": "^4.0.0",
-        "path": "^0.12.7"
+        "path": "^0.12.7",
+        "react-select": "^3.1.0"
     }
 }

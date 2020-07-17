@@ -31,6 +31,7 @@ function login(email, password) {
           history.push('/');
         },
         (error) => {
+          localStorage.setItem('error', error);
           dispatch(failure(error.toString()));
           dispatch(alertActions.error(error.toString()));
         },
@@ -38,7 +39,7 @@ function login(email, password) {
   };
   function request(user) { return { type: userConstants.LOGIN_REQUEST, user }; }
   function success(user) { return { type: userConstants.LOGIN_SUCCESS, user }; }
-  function failure(error) { localStorage.setItem('error', error); }
+  function failure(error) { return { type: userConstants.REGISTER_FAILURE, error }; }
 }
 
 function logout() {

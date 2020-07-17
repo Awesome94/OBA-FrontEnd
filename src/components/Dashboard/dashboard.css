@@ -30,12 +30,18 @@
 .items {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    text-transform: capitalize;
 }
 
 .itemTitle {
     display: flex;
-    position: absolute;
-    margin-left: -125px;
+    flex: 1;
+    align-self: flex-start;
+    padding: 10px;
+    text-align: left;
 }
 
 .content {

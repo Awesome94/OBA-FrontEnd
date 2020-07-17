@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './RegisterBusinessComponent.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector, connect } from 'react-redux';
+import Select from 'react-select';
+import countryList from 'react-select-country-list';
 import { userActions } from '../../_actions/user.actions';
 
 const RegisterBusinessComponent = (props) => {
@@ -13,6 +15,7 @@ const RegisterBusinessComponent = (props) => {
   const [software, setsoftware] = useState(props.items ? props.items.accounting_software : '');
   const [revenue, setRevenue] = useState(props.items ? props.items.annual_sales_revenue : '');
   const [entity, setEntity] = useState(props.items ? props.items.name : '');
+  const options = countryList().getData();
 
   const [submitted, setSubmitted] = useState(false);
   const registering = useSelector((state) => state.registering);
@@ -33,8 +36,8 @@ const RegisterBusinessComponent = (props) => {
   const onEntityChange = (event) => {
     setEntity(event.target.value);
   };
-  const onRevenueChange = (event) => {
-    setRevenue(event.target.value);
+  const onRevenueChange = (e) => {
+    setRevenue(e.label);
   };
   const onSoftwareChange = (event) => {
     setsoftware(event.target.value);
@@ -43,20 +46,107 @@ const RegisterBusinessComponent = (props) => {
     setOperations(event.target.value);
   };
 
+  const rangeOptions = [
+    { value: 0, label: '50,000-100,000' },
+    { value: 0, label: '100,000-200,0000' },
+    { value: 0, label: '200,000-300,000' },
+    { value: 0, label: '300,000-450,000' },
+    { value: 0, label: 'Over 450,000' },
+  ];
+  const customStyles = {
+    menu: (provided, state) => ({
+      ...provided,
+      width: state.selectProps.width,
+      borderBottom: '1px dotted pink',
+      color: state.selectProps.menuColor,
+      padding: 10,
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected ? 'red' : 'green',
+      width: '100%',
+      align: 'left',
+    }),
+    input: (provided, state) => ({
+      ...provided,
+      padding: 8,
+
+    }),
+    container: (provided, state) => ({
+      ...provided,
+      width: '100%',
+
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      width: '100%',
+      borderRadius: '10px',
+      margin: '4px',
+      marginLeft: -0.1,
+    }),
+    singleValue: (provided, state) => {
+      const opacity = state.isDisabled ? 0.5 : 1;
+      const transition = 'opacity 300ms';
+
+      return { ...provided, opacity, transition };
+    },
+  };
+
+  const customStylesRange = {
+    menu: (provided, state) => ({
+      ...provided,
+      width: state.selectProps.width,
+      borderBottom: '1px dotted pink',
+      padding: 10,
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected ? 'white' : 'green',
+      width: '100%',
+      align: 'left',
+      background: '#FFFF',
+
+    }),
+    input: (provided, state) => ({
+      ...provided,
+      padding: 15,
+
+    }),
+    container: (provided, state) => ({
+      ...provided,
+      width: '100%',
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      width: '100%',
+      borderRadius: '10px',
+      margin: '10px',
+      marginLeft: 5,
+    }),
+    singleValue: (provided, state) => {
+      const opacity = state.isDisabled ? 0.5 : 1;
+      const transition = 'opacity 300ms';
+
+      return { ...provided, opacity, transition };
+    },
+  };
+  const formatCountries = (countries) => countries && countries.map((OpsCountry) => OpsCountry.label);
+
   function handleRegisterBusiness(e) {
     e.preventDefault();
     setSubmitted(true);
+    const countriesOfOperation = formatCountries(operations);
+
     const payload = {
       name,
       abbreviation,
       company_address: address,
       country,
-      countries_of_operation: operations,
+      countries_of_operation: countriesOfOperation,
       annual_sales_revenue: revenue,
       software,
       entity,
     };
-    console.log('this ids==s props');
     if (props.items && (props.items.name === '' || props.items.address === '')) {
       return dispatch(userActions.registerBusiness(payload));
     }
@@ -65,11 +155,15 @@ const RegisterBusinessComponent = (props) => {
     }
   }
 
+  const countriesHandler = (e) => {
+    setOperations(e);
+  };
+
   return (
     <div className="reg-container">
       <div className="reg-business-container">
         <Link to="/" className="backLink">Back</Link>
-        <form className="business">
+        <form className="business" onSubmit={(e) => handleRegisterBusiness(e)}>
           <div />
           <div className="form-section">
             <input onChange={onNameChange} className="inputField" title="Business Name" placeholder="Business Name" value={name} required />
@@ -80,16 +174,31 @@ const RegisterBusinessComponent = (props) => {
             <input onChange={onCountryChange} className="small" placeholder="Country" value={country} required />
           </div>
           <div className="form-section">
-            <input onChange={onOpsChange} className="long" placeholder="Countries of Operation" value={operations} required />
+            <Select
+              placeholder="Countries Of Operation"
+              closeMenuOnSelect={false}
+              isMulti
+              options={options}
+              styles={customStyles}
+              onChange={(e) => {
+                countriesHandler(e);
+              }}
+            />
           </div>
           <div className="form-section">
-            <input onChange={onRevenueChange} className="inputField" placeholder="Annual Sales Revenue" value={revenue} required />
-            <input onChange={onEntityChange} className="small" placeholder="Entity" value={entity} required />
+            <Select
+              placeholder="Annual Sales Revenue KSHS"
+              closeMenuOnSelect={false}
+              options={rangeOptions}
+              onChange={(e) => { onRevenueChange(e); }}
+              styles={customStylesRange}
+            />
+            <input onChange={onEntityChange} className="entity" placeholder="Entity" value={entity} required />
           </div>
           <div className="form-section">
             <input onChange={onSoftwareChange} className="long" placeholder="Accounting Software" value={software} required />
           </div>
-          <button type="button" onClick={(e) => handleRegisterBusiness(e)} className="action">Submit</button>
+          <button type="submit" className="action">Submit</button>
         </form>
       </div>
       <div />

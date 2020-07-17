@@ -42,11 +42,11 @@ const DashboardComponent = (props) => {
             </p>
           </div>
           <div className="items">
-            <p className="itemTitle">Incoming Amount:</p>
+            <p className="itemTitle">Incoming Amount(KSHS):</p>
             <p className="content">{incoming}</p>
           </div>
           <div className="items">
-            <p className="itemTitle">Outgoing Amount:</p>
+            <p className="itemTitle">Outgoing Amount(KSHS):</p>
             <p className="content">
               {' '}
               {outgoing}

@@ -97,8 +97,8 @@ const BusinessTable = ({ items }) => {
         </thead>
         <tbody>
           {
-          items && items.map((business) => (
-            <tr>
+          items && items.map((business, key) => (
+            <tr key={key}>
               <td style={{ cursor: 'pointer' }} onClick={() => { showBusinessChart(business.id); }}>{business.name}</td>
               <td>{business.abbreviation}</td>
               <td>{business.company_address}</td>
