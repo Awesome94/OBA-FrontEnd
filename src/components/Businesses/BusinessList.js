@@ -16,6 +16,7 @@ const BusinessTable = ({ items }) => {
   const businesses = useSelector((state) => state.business.items);
 
   useEffect(() => {
+    localStorage.removeItem('error');
     dispatch(userActions.getAllBusinesses());
   }, []);
 

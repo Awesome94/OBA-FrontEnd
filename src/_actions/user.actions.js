@@ -44,6 +44,8 @@ function login(email, password) {
 
 function logout() {
   userService.logout();
+  localStorage.removeItem('edit');
+  localStorage.removeItem('graphData');
   history.push('/auth');
   return { type: userConstants.LOGOUT };
 }
@@ -142,6 +144,7 @@ function registerBusiness(business) {
 
 function setEditBusiness(data) {
   history.push('/register');
+  localStorage.setItem('edit', true);
   return { type: userConstants.SET_EDIT_BUSINESS, data };
 }
 

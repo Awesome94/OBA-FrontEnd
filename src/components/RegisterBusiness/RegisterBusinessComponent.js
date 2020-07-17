@@ -11,7 +11,7 @@ const RegisterBusinessComponent = (props) => {
   const [abbreviation, setAbbreviation] = useState(props.items ? props.items.abbreviation : '');
   const [address, setAddress] = useState(props.items ? props.items.company_address : '');
   const [country, setCountry] = useState(props.items ? props.items.country : '');
-  const [operations, setOperations] = useState(props.items ? props.items.countries_of_operation : '');
+  const [operations, setOperations] = useState(props.items ? props.items.countries : []);
   const [software, setsoftware] = useState(props.items ? props.items.accounting_software : '');
   const [revenue, setRevenue] = useState(props.items ? props.items.annual_sales_revenue : '');
   const [entity, setEntity] = useState(props.items ? props.items.name : '');
@@ -134,9 +134,10 @@ const RegisterBusinessComponent = (props) => {
 
   function handleRegisterBusiness(e) {
     e.preventDefault();
+    debugger;
     setSubmitted(true);
     const countriesOfOperation = formatCountries(operations);
-
+    setOperations(countriesOfOperation);
     const payload = {
       name,
       abbreviation,
@@ -147,12 +148,10 @@ const RegisterBusinessComponent = (props) => {
       software,
       entity,
     };
-    if (props.items && (props.items.name === '' || props.items.address === '')) {
-      return dispatch(userActions.registerBusiness(payload));
-    }
-    if (props.items && props.items.id) {
+    if (localStorage.getItem('edit')) {
       return dispatch(userActions.updateBusinessDetails(payload, props.items.id));
     }
+    return dispatch(userActions.registerBusiness(payload));
   }
 
   const countriesHandler = (e) => {
@@ -199,7 +198,7 @@ const RegisterBusinessComponent = (props) => {
             <input onChange={onSoftwareChange} className="long" placeholder="Accounting Software" value={software} required />
           </div>
           <div>
-            <input type="submit" className="action" value="Submit" />
+            <button className="action">Submit</button>
           </div>
         </form>
       </div>

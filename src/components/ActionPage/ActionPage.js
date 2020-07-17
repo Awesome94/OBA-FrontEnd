@@ -11,6 +11,7 @@ const ActionPage = () => {
   const dispatch = useDispatch();
 
   const setRegisterFlow = () => {
+    localStorage.removeItem('edit');
     dispatch(userActions.setRegisterBusiness());
   };
 

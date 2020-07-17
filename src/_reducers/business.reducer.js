@@ -3,7 +3,7 @@ import { userConstants } from '../_constants';
 const initialState = {
   businessData: {
     name: '',
-    Entity: '',
+    entity: '',
     accounting_software: '',
     country: '',
     countries: '',
