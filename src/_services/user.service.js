@@ -17,7 +17,7 @@ export const userService = {
 };
 
 function login(email, password) {
-  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/login`;
+  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/login`;
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-type': 'application/json; charset=UTF-8' },
