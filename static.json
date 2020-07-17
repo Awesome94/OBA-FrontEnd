@@ -1,0 +1,11 @@
+{
+    "root": "build/",
+    "routes": {
+        "/**": "index.html"
+    },
+    "proxies": {
+        "/proxy/": {
+            "origin": "${REACT_APP_SERVER_BASE_URL}"
+        }
+    }
+}
