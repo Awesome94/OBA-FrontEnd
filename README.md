@@ -9,4 +9,4 @@ npm install
 npm start.
 
 API can be found here
-# configure your api variables accordingly to get up and running.
+# configure your API variables accordingly to get up and running.

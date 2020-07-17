@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, connect, useSelector } from 'react-redux';
-import { Pie } from 'react-chartjs-2';
 import {
-  ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 import PieChartComponent from './Piechart/PiechartComponent';
-import GraphComponent from './Graph/GraphComponent';
-import { userActions } from '../../_actions/user.actions';
 import './dashboard.css';
 
 const DashboardComponent = (props) => {
-  const graphData = JSON.parse(localStorage.getItem('graphData'));
+  const graphData = JSON.parse(localStorage.getItem('graphData')) ? JSON.parse(localStorage.getItem('graphData')) : {};
   const [incoming, setIncoming] = useState(props.items ? props.items.incoming : graphData.incoming);
   const [outgoing, setOutgoing] = useState(props.items ? props.items.outgoing : graphData.outgoing);
   const [topQtyData, setTopQtyData] = useState(props.items ? props.items.topQuantity : graphData.topQuantity);
@@ -18,11 +15,6 @@ const DashboardComponent = (props) => {
   const [topProduct, setTopProduct] = useState(props.items ? props.items.topProduct : graphData.topProduct);
   const [currentUser, setcurrentUser] = useState(props.items ? props.items.currentUser : graphData.currentUser);
   const [businessName, setBusinessName] = useState(props.items ? props.items.businessName : graphData.businessName);
-
-  const dispatch = useDispatch();
-  const checkdata = () => {
-    console.log(graphData);
-  };
 
   return (
     <div className="dashContainer">
@@ -38,9 +30,7 @@ const DashboardComponent = (props) => {
           {currentUser}
         </p>
       </div>
-      <div className="businessHeader">
-        <button onClick={() => checkdata()}>View all uploads</button>
-      </div>
+      <div className="businessHeader" />
       <div className="graphs">
         <PieChartComponent />
         <div className="productInfo">

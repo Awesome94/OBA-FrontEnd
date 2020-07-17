@@ -46,19 +46,22 @@ const RegisterBusinessComponent = (props) => {
   function handleRegisterBusiness(e) {
     e.preventDefault();
     setSubmitted(true);
-    if (name && abbreviation
-            && address && country
-            && operations && revenue && software) {
-      const payload = {
-        name,
-        abbreviation,
-        company_address: address,
-        country,
-        countries_of_operation: operations,
-        annual_sales_revenue: revenue,
-        software,
-        entity,
-      }; dispatch(userActions.registerBusiness(payload));
+    const payload = {
+      name,
+      abbreviation,
+      company_address: address,
+      country,
+      countries_of_operation: operations,
+      annual_sales_revenue: revenue,
+      software,
+      entity,
+    };
+    console.log('this ids==s props');
+    if (props.items && (props.items.name === '' || props.items.address === '')) {
+      return dispatch(userActions.registerBusiness(payload));
+    }
+    if (props.items && props.items.id) {
+      return dispatch(userActions.updateBusinessDetails(payload, props.items.id));
     }
   }
 
@@ -86,7 +89,7 @@ const RegisterBusinessComponent = (props) => {
           <div className="form-section">
             <input onChange={onSoftwareChange} className="long" placeholder="Accounting Software" value={software} required />
           </div>
-          <button type="button" onClick={handleRegisterBusiness} className="action">Submit</button>
+          <button type="button" onClick={(e) => handleRegisterBusiness(e)} className="action">Submit</button>
         </form>
       </div>
       <div />

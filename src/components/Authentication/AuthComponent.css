@@ -90,16 +90,10 @@ input.auth {
     width: 100%;
 }
 
-.container {
-    display: flex;
-    position: relative;
-    margin-top: 250px;
+.authContainer {
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     overflow: hidden;
-    width: 30%;
-    min-height: 480px;
+    height: 50%;
 }
 
 .form-container {
@@ -114,7 +108,7 @@ input.auth {
     z-index: 2;
 }
 
-.container.right-panel-active .sign-in-container {
+.authContainer.right-panel-active .sign-in-container {
     transform: translateX(100%);
 }
 
@@ -125,7 +119,7 @@ input.auth {
     z-index: 1;
 }
 
-.container.right-panel-active .sign-up-container {
+.authContainer.right-panel-active .sign-up-container {
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
@@ -156,7 +150,7 @@ input.auth {
     z-index: 100;
 }
 
-.container.right-panel-active .overlay-container {
+.authContainer.right-panel-active .overlay-container {
     transform: translateX(-100%);
 }
 
@@ -176,7 +170,7 @@ input.auth {
     transition: transform 0.6s ease-in-out;
 }
 
-.container.right-panel-active .overlay {
+.authContainer.right-panel-active .overlay {
     transform: translateX(50%);
 }
 
@@ -199,7 +193,7 @@ input.auth {
     transform: translateX(-20%);
 }
 
-.container.right-panel-active .overlay-left {
+.authContainer.right-panel-active .overlay-left {
     transform: translateX(0);
 }
 
@@ -208,7 +202,7 @@ input.auth {
     transform: translateX(0);
 }
 
-.container.right-panel-active .overlay-right {
+.authContainer.right-panel-active .overlay-right {
     transform: translateX(20%);
 }
 

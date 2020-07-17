@@ -10,13 +10,19 @@ const SignUpComponent = () => {
   const password = useFormInput('');
   const loggingIn = useSelector((state) => state.authentication.loggingIn);
   const dispatch = useDispatch();
+  const [error, setError] = useState('');
 
   useEffect(() => {
     dispatch(userActions.logout());
+    const authError = localStorage.getItem('error');
+    if (authError) {
+      setError(authError);
+    }
   }, []);
 
   const handleRegistration = (e) => {
     e.preventDefault();
+    localStorage.removeItem('error');
     setSubmitted(true);
     if (firstname && lastname && email && password) {
       dispatch(userActions.register({
@@ -32,6 +38,7 @@ const SignUpComponent = () => {
         <input className="auth" type="text" {...lastname} placeholder="Last name" />
         <input className="auth" type="text" {...email} placeholder="Email address" />
         <input className="auth" type="password" {...password} placeholder="Password" />
+        <span className="error">{localStorage.getItem('error')}</span>
         <button className="action">Sign Up</button>
       </form>
     </div>

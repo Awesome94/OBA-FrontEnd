@@ -55,8 +55,8 @@ function registerBusiness(business) {
   return fetch(apiUrl, requestOptions).then(handleResponse);
 }
 
-function updateBusinessDetails(data) {
-  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/business/{id}`;
+function updateBusinessDetails(data, id) {
+  const apiUrl = `${process.env.REACT_APP_SERVER_BASE_URL}/business/${id}`;
   const requestOptions = {
     method: 'PUT',
     headers: { ...authHeader(), 'Content-type': 'application/json; charset=UTF-8' },

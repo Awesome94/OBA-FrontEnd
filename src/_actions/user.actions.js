@@ -38,7 +38,7 @@ function login(email, password) {
   };
   function request(user) { return { type: userConstants.LOGIN_REQUEST, user }; }
   function success(user) { return { type: userConstants.LOGIN_SUCCESS, user }; }
-  function failure(error) { return { type: userConstants.LOGIN_FAILURE, error }; }
+  function failure(error) { localStorage.setItem('error', error); }
 }
 
 function logout() {
@@ -59,6 +59,7 @@ function register(user) {
           history.push('/');
         },
         (error) => {
+          localStorage.setItem('error', error);
           dispatch(failure(error.toString()));
           dispatch(alertActions.error(error.toString()));
         },
@@ -170,16 +171,16 @@ function setRegisterBusiness() {
   return { type: userConstants.SET_REGISTER_BUSINESS };
 }
 
-function updateBusinessDetails(business) {
+function updateBusinessDetails(business, id) {
   return (dispatch) => {
     dispatch(request(business));
 
-    userService.updateBusinessDetails(business)
+    userService.updateBusinessDetails(business, id)
       .then(
         () => {
           dispatch(success());
           dispatch(alertActions.success('Data Updated Successfully'));
-          history.push('/dashboard');
+          history.push('/');
         },
         (error) => {
           dispatch(failure(error.toString()));

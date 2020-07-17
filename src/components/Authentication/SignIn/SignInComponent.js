@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, connect } from 'react-redux';
 
 import { userActions } from '../../../_actions';
 
@@ -8,14 +8,20 @@ const SignInComponent = (props) => {
   const email = useFormInput('');
   const password = useFormInput('');
   const loggingIn = useSelector((state) => state.authentication.loggingIn);
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(userActions.logout());
+    const authError = localStorage.getItem('error');
+    if (authError) {
+      setError(authError);
+    }
   }, []);
 
   const handleLogin = (e) => {
     e.preventDefault();
+    localStorage.removeItem('error');
     setSubmitted(true);
     if (email && password) {
       dispatch(userActions.login(email.value, password.value));
@@ -27,6 +33,7 @@ const SignInComponent = (props) => {
       <form className="auth" onSubmit={handleLogin}>
         <h1>Sign In</h1>
         <span>to use your OBA-Analyzer account</span>
+        <span className="error">{error}</span>
         <input className="auth" type="email" {...email} placeholder="Email address" />
         <input className="auth" type="password" {...password} placeholder="Password" />
         <button className="action">Sign In</button>
