@@ -5,7 +5,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 import { history } from './helpers';
-import { alertActions } from './_actions';
+import {  Actions } from './_actions';
 import { PrivateRoute } from './components/Privacy';
 
 import Navigation from './components/Navigation/Navigation';
@@ -18,12 +18,12 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
-  const alert = useSelector((state) => state.alert);
+  const    = useSelector((state) => state. );
   const dispatch = useDispatch();
 
   useEffect(() => {
     history.listen((location, action) => {
-      dispatch(alertActions.clear());
+      dispatch( Actions.clear());
     });
   }, []);
 
